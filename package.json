@@ -1,0 +1,26 @@
+{
+  "name": "vocabulary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsta9x/vocabulary.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nsta9x/vocabulary/issues"
+  },
+  "homepage": "https://github.com/nsta9x/vocabulary#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@angular/cli": "^7.3.8"
+  }
+}
