@@ -2,6 +2,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
   emailInput : String;
+  router: Router;
   constructor(private loginSV : LoginService) { }
 
   logInForm = new FormGroup({
@@ -24,5 +26,6 @@ export class LoginComponent implements OnInit {
   
   onSubmit(){
     this.loginSV.login(this.logInForm.controls['email'].value,this.logInForm.controls['password'].value);
+    this.router.navigate(['user']);
   }
 }

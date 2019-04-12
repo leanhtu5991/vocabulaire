@@ -1,0 +1,30 @@
+.listmenu{
+    display: block;
+    width: 50%;
+    margin: auto;
+    padding: 30px;
+}
+
+.menu{
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    height: 40px;
+}
+
+.menu1 {
+    background-color: chocolate;
+}
+.menu2 {
+    background-color: royalblue;
+}
+.menu3 {
+    background-color: green;
+}
+.menu4 {
+    background-color:yellowgreen;
+}
+.menu5 {
+    background-color:crimson;
+}

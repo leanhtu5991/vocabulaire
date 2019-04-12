@@ -1,5 +1,17 @@
-<div class="btn-group" style="width:100%">
-  <button style="width:33.3%" routerLink="/login">Log In</button>
-  <button style="width:33.3%" routerLink="/signup">Sign Up</button>
-  <button style="width:33.3%" routerLink="/aboutus">About Us</button>
-</div>
+<div *ngIf="isLogged; then loggedMenu else guestMenu"></div>
+<ng-template #loggedMenu>
+  <div class="btn-group" style="width:100%" >
+    <button style="width:10%"routerLink="/user"><i class="fa fa-home"></i></button>
+    <button style="width:30%">Log Out</button>
+    <button style="width:30%" routerLink="/userinfo">My Account</button>
+    <button style="width:30%" routerLink="/aboutus">About Us</button>
+  </div>
+</ng-template>
+<ng-template #guestMenu>
+  <div class="btn-group" style="width:100%" >
+    <button style="width:10%"routerLink="/"><i class="fas fa-home"></i></button>
+    <button style="width:30%" routerLink="/login">Log In</button>
+    <button style="width:30%" routerLink="/signup">Sign Up</button>
+    <button style="width:30%" routerLink="/aboutus">About Us</button>  
+  </div>
+</ng-template>
