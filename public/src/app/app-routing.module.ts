@@ -13,7 +13,7 @@ const routes: Routes = [
   {path : '',                   component : HeaderComponent,          outlet : "header"},
   {path : '',                   component : MainPageComponent},
   {path : 'user',               component : MainPageUserComponent},
-  {path : 'user/new-word',      component : NewWordComponent},
+  {path : 'addword',            component : NewWordComponent},
   {path : 'login',              component : LoginComponent},
   {path : 'signup',             component : SignupComponent},
   {path : 'aboutus',            component : AboutUsComponent},
