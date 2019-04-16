@@ -7,14 +7,9 @@ export class User{
     role : number;
     datesignup : Date;
     civil : Civil;
+    password : string;
 
     constructor(){
 
     }
-}
-
-enum Civil {
-    Man,
-    Woman,
-    Undefined
 }

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { User } from '../data/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignupService {
   
-  signup(signUpForm: FormGroup) {
+  signup(user: User) {
     console.log("Signup information:");
-    console.log("Name: " + signUpForm.controls['name'].value);
-    console.log("Email: " + signUpForm.controls['email'].value);
+    console.log("Name: " + user.name);
+    console.log("Email: " + user.email);
+    console.log("Email: " + user.password);
   }
 
   constructor() { }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { SignupService } from 'src/app/services/signup.service';
+import { User } from 'src/app/data/user';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +9,7 @@ import { SignupService } from 'src/app/services/signup.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  newUser : any;
   emailInput : String;
   constructor(private signupSV : SignupService) { }
 
@@ -24,7 +25,13 @@ export class SignupComponent implements OnInit {
   }
   
   onSubmit(){
-    this.signupSV.signup(this.signUpForm);
+    this.newUser = this.signUpForm.value;
+    if(this.newUser.password1 != this.newUser.password2){
+      console.log("Password not match");
+      return false;
+    }
+    this.newUser.password = this.newUser.password1;
+    this.signupSV.signup(this.newUser);
   }
 
 }

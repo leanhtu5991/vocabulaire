@@ -19,6 +19,8 @@ import { NewWordComponent } from './components/functions/new-word/new-word.compo
 import { QuizzComponent } from './components/functions/quizz/quizz.component';
 import { NoteBookComponent } from './components/functions/note-book/note-book.component';
 import { AddWordService } from './services/add-word.service';
+import { WordDetailComponent } from './components/functions/word-detail/word-detail.component';
+import { BoxformatPipe } from './pipes/boxformat.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { AddWordService } from './services/add-word.service';
     UserInfoComponent,
     NewWordComponent,
     QuizzComponent,
-    NoteBookComponent
+    NoteBookComponent,
+    WordDetailComponent,
+    BoxformatPipe
   ],
   imports: [
     BrowserModule,

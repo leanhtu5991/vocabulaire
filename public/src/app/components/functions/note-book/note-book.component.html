@@ -1,3 +1,28 @@
-<p>
-  note-book works!
-</p>
+<div class="container">
+<div class="row">MY NOTEBOOK</div>
+  <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+      <table class="table">
+            <thead>
+              <tr>
+                  <th>Word</th>
+                  <th>Definition</th>
+                  <th>Box</th>
+                  <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let word of lstWord" >
+                  <td>{{word.word}}</td>
+                  <td>{{word.translate}}</td>
+                  <td>{{word.idbox}}</td>
+                  <td><span (click)="selectWord(word)"><i class="fa fa-arrow-right"></i></span></td>
+              </tr>
+            </tbody>
+      </table>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <app-word-detail [word]="selectedWord"></app-word-detail>
+    </div>
+  </div>
+</div>
