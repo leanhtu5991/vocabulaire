@@ -33,5 +33,4 @@ export class SignupComponent implements OnInit {
     this.newUser.password = this.newUser.password1;
     this.signupSV.signup(this.newUser);
   }
-
 }
