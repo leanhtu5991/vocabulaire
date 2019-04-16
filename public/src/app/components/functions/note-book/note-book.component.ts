@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LIST_WORD_EXAMPLE } from '../../../data/global';
 
 @Component({
@@ -13,6 +13,7 @@ export class NoteBookComponent implements OnInit {
 
   ngOnInit() {
     this.lstWord = LIST_WORD_EXAMPLE;
+    console.log(this.lstWord);
     this.selectedWord = undefined;
   }
 

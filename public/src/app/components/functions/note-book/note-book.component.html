@@ -15,7 +15,7 @@
               <tr *ngFor="let word of lstWord" >
                   <td>{{word.word}}</td>
                   <td>{{word.translate}}</td>
-                  <td>{{word.idbox}}</td>
+                  <td [innerHTML]="word.idbox | boxformat"></td>
                   <td><span (click)="selectWord(word)"><i class="fa fa-arrow-right"></i></span></td>
               </tr>
             </tbody>
