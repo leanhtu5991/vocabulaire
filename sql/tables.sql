@@ -16,7 +16,7 @@ COLLATE=utf8_general_ci;
 
 CREATE TABLE vocabulary.box (
 	id int NOT NULL AUTO_INCREMENT,
-	`time` date NOT NULL,
+	`time` int NOT NULL,
 	description varchar(100) NOT NULL,
 	name varchar(100) NOT NULL,
 	CONSTRAINT box_pk PRIMARY KEY (id)
