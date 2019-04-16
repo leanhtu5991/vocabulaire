@@ -1,8 +1,8 @@
-<div *ngIf="isLogged; then loggedMenu else guestMenu"></div>
+<div *ngIf="isLogedIn(); then loggedMenu else guestMenu"></div>
 <ng-template #loggedMenu>
   <div class="btn-group" style="width:100%" >
     <button style="width:10%"routerLink="/user"><i class="fa fa-home"></i></button>
-    <button style="width:30%">Log Out</button>
+    <button style="width:30%" (click)="logout()">Log Out</button>
     <button style="width:30%" routerLink="/userinfo">My Account</button>
     <button style="width:30%" routerLink="/aboutus">About Us</button>
   </div>

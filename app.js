@@ -8,8 +8,15 @@ var passport = require('passport');
 // const mongoose = require('./config/database');
 var jwt = require('jsonwebtoken');
 var db = require('./db');
+var fs = require('fs');
 // const env = require('dotenv').load();
 // var startTasks = require('./startTasks');
+
+db.tryConnect();
+if (!fs.existsSync(process.env.DOCUMENTS_PATH)){
+  fs.mkdirSync(process.env.DOCUMENTS_PATH);
+}
+
 
 app.set('secretKey', process.env.JWT_SECRET );
 // startTasks.createFirstUserIfNotExists();

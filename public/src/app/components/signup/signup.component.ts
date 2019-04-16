@@ -1,7 +1,8 @@
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { SignupService } from 'src/app/services/signup.service';
 import { User } from 'src/app/data/user';
+import { Router } from '@angular/router';
+import { AuthenticationService, TokenPayload } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,13 @@ import { User } from 'src/app/data/user';
 export class SignupComponent implements OnInit {
   newUser : any;
   emailInput : String;
-  constructor(private signupSV : SignupService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) 
+  {
+    this.emailInput = "youremail@example.com";
+  }
 
   signUpForm = new FormGroup({
     name     : new FormControl("", Validators.required),
@@ -21,7 +28,7 @@ export class SignupComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.emailInput = "youremail@example.com";
+    
   }
   
   onSubmit(){
@@ -31,7 +38,13 @@ export class SignupComponent implements OnInit {
       return false;
     }
     this.newUser.password = this.newUser.password1;
-    this.signupSV.signup(this.newUser);
+    this.newUser.civil = 1;
+    this.newUser.tel = "123456";
+    this.newUser.birthday = null;
+    console.log(this.newUser)
+    this.authService.register(this.newUser).subscribe(data => {
+      console.log(data)
+    })
   }
 
 }

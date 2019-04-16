@@ -1,9 +1,8 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
 import {Router} from '@angular/router';
-
+import { AuthenticationService, TokenPayload } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +11,13 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   emailInput : String;
-  router: Router;
-  constructor(private loginSV : LoginService) { }
+  user : any;
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) { 
+
+  }
 
   logInForm = new FormGroup({
     email    : new FormControl("", Validators.required),
@@ -25,7 +29,25 @@ export class LoginComponent implements OnInit {
   }
   
   onSubmit(){
-    this.loginSV.login(this.logInForm.controls['email'].value,this.logInForm.controls['password'].value);
-    this.router.navigate(['user']);
+    this.user = this.logInForm.value;
+    console.log(this.user)
+    this.authService.login(this.user).subscribe(data => {
+      console.log(data)
+      if(data.status == 'success'){
+        if(data.user.isAdmin){
+          console.log(data)
+          setTimeout(() => {
+            this.router.navigate(['user']); // Navigate to dashboard view
+          }, 750);
+        } else {
+          console.log(data)
+          setTimeout(() => {
+            this.router.navigate(['']); // Navigate to dashboard view
+          }, 750);
+        }
+      } else {
+        console.log(data.message)
+      }
+    })
   }
 }

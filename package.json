@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/nsta9x/vocabulary#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
+    "fs": "0.0.1-security",
+    "jwt-decode": "^2.2.0",
     "mysql2": "^1.6.5",
     "passport": "^0.4.0",
     "sequelize": "^5.2.12"

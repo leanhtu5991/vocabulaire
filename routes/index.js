@@ -5,5 +5,7 @@ var db = require('../db');
 
 var ctrlAuth = require('../controllers/authentication');
 
-router.get('/login', ctrlAuth.login);
+//auhtentication
+router.post('/login', ctrlAuth.login);
+router.post('/register', ctrlAuth.register);
 module.exports = router;
