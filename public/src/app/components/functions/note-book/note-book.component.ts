@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LIST_WORD_EXAMPLE } from '../../../data/global';
+import { CONFIG_BOX } from 'src/app/data/global';
 
 @Component({
   selector: 'app-note-book',
@@ -7,18 +8,25 @@ import { LIST_WORD_EXAMPLE } from '../../../data/global';
   styleUrls: ['./note-book.component.css']
 })
 export class NoteBookComponent implements OnInit {
-  lstWord : any;
+  lstWord = LIST_WORD_EXAMPLE;
+  lstBox = CONFIG_BOX;
   selectedWord : any;
   constructor() { }
 
   ngOnInit() {
-    this.lstWord = LIST_WORD_EXAMPLE;
-    console.log(this.lstWord);
     this.selectedWord = undefined;
   }
 
   selectWord(word: any){
     this.selectedWord = word;
+  }
+
+  selectBoxFilter(event){
+    let value = event.target.value;
+    this.lstWord = LIST_WORD_EXAMPLE;
+    if(value != 0) {
+      this.lstWord = this.lstWord.filter(word => word.idbox == value);
+    }
   }
 
 }
