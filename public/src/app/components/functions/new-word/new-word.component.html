@@ -1,15 +1,15 @@
 <div class="container">
-    <div class="row">
-      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-        <label>Enter your new word:</label>
-        <input type="text" class="form-control" formControlName="word" placeholder="{{phd_word}}" required/>
+  <div class="row">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <label>Enter your new word:</label>
+      <input type="text" class="form-control" formControlName="word" placeholder="{{phd_word}}" required />
 
-        <label>Enter your definition:</label>
-        <input type="text" class="form-control" formControlName="translate" placeholder="{{phd_word}}" required/>
-        
-        <div class="form-group">
-            <input type="submit" class="btnSubmit" [disabled]="!myForm.valid" value="Submit">
-        </div>
-      </form>
-    </div>
+      <label>Enter your definition:</label>
+      <input type="text" class="form-control" formControlName="translate" placeholder="{{phd_word}}" required />
+
+      <div class="form-group">
+        <input type="submit" class="btnSubmit" [disabled]="!myForm.valid" value="Submit">
+      </div>
+    </form>
   </div>
+</div>
