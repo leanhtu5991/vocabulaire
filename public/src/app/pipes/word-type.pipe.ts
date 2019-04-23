@@ -4,7 +4,8 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { CONFIG_WORD } from '../data/global';
 
 @Pipe({
-  name: 'wordType'
+  name: 'wordType',
+  pure : false
 })
 export class WordTypePipe implements PipeTransform {
   constructor(private _sanitizer:DomSanitizer) {}

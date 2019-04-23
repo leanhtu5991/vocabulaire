@@ -1,9 +1,9 @@
 export const LIST_WORD_EXAMPLE = [
-    {word: 'hello', translate : "bonjour", idbox : 1, type : 1},
-    {word: 'house', translate : "maison", idbox : 3, type : 1},
-    {word: 'love', translate : "aimer", idbox : 2, type : 2},
-    {word: 'small', translate : "petit", idbox : 2, type : 3},
-    {word: 'friendly', translate : "amical", idbox : 2, type : 4}
+    {id: 1, word: 'hello', translate : "bonjour", idbox : 1, type : 1},
+    {id: 2, word: 'house', translate : "maison", idbox : 3, type : 1},
+    {id: 3, word: 'love', translate : "aimer", idbox : 2, type : 2},
+    {id: 4, word: 'small', translate : "petit", idbox : 2, type : 3},
+    {id: 5, word: 'friendly', translate : "amical", idbox : 2, type : 4}
 ];
 
 export const CONFIG_BOX = [

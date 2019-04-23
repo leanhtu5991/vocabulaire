@@ -25,6 +25,7 @@ export class NoteBookComponent implements OnInit {
     let value = event.target.value;
     this.lstWord = LIST_WORD_EXAMPLE;
     if(value != 0) {
+
       this.lstWord = this.lstWord.filter(word => word.idbox == value);
     }
   }

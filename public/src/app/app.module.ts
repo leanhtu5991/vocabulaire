@@ -23,7 +23,7 @@ import { WordDetailComponent } from './components/functions/word-detail/word-det
 //Pipe
 import { BoxformatPipe } from './pipes/boxformat.pipe';
 //Service
-import { AddWordService } from './services/add-word.service';
+import { WordService } from './services/word.service';
 import { LoginService } from './services/login.service';
 import { AuthenticationService } from './services/auth.service';
 import { WordTypePipe } from './pipes/word-type.pipe';
@@ -66,7 +66,7 @@ export function tokenGetter() {
   providers: [
     DatePipe,
     LoginService,
-    AddWordService,
+    WordService,
     AuthenticationService
   ],
   bootstrap: [AppComponent]

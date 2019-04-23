@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/data/word';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AddWordService } from 'src/app/services/add-word.service';
+import { WordService } from 'src/app/services/word.service';
 import { CONFIG_WORD } from '../../../data/global';
 @Component({
   selector: 'app-new-word',
@@ -15,7 +15,7 @@ export class NewWordComponent implements OnInit {
   myForm = new FormGroup({});
   cw : any = CONFIG_WORD;
   hiddenMessage = true;
-  constructor(private formBuilder: FormBuilder, private svSave : AddWordService) {
+  constructor(private formBuilder: FormBuilder, private wordService : WordService) {
     this.myForm = formBuilder.group({
       word:       [this.newWord.word, [Validators.required]],
       translate:  [this.newWord.translate, [Validators.required, Validators.minLength(2)]], 
@@ -33,7 +33,7 @@ export class NewWordComponent implements OnInit {
       this.hiddenMessage = true;
       this.newWord = this.myForm.value;
       this.newWord.idbox = 1; //Default
-      this.svSave.saveNewWord( this.newWord);
+      this.wordService.saveNewWord( this.newWord);
     } else {
       this.hiddenMessage = false;
     }
