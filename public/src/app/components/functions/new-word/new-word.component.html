@@ -7,8 +7,16 @@
       <label>Enter your definition:</label>
       <input type="text" class="form-control" formControlName="translate" placeholder="{{phd_word}}" required />
 
+      <label>Select word type:</label>
+      <select formControlName="type" class="form-control" required >
+          <option *ngFor='let type of cw' value='{{type.id}}'>{{type.typename}}</option>
+      </select>
+      <br>
       <div class="form-group">
-        <input type="submit" class="btnSubmit" [disabled]="!myForm.valid" value="Submit">
+        <input type="submit" class="btnSubmit" value="Submit">
+      </div>
+      <div class="form-group alert alert-warning" [hidden]="hiddenMessage">
+        Please review all fields before submitting.
       </div>
     </form>
   </div>

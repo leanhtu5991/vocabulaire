@@ -6,7 +6,7 @@
 </ng-template>
 <ng-template #wordDetail>
   <div class="word-detail">
-      <h3>{{word.word}}</h3>
+      <h3 [innerHTML] = "word | wordType"></h3>
       <h4>{{word.translate}}</h4>
   </div>
 </ng-template>

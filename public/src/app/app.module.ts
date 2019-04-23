@@ -26,6 +26,7 @@ import { BoxformatPipe } from './pipes/boxformat.pipe';
 import { AddWordService } from './services/add-word.service';
 import { LoginService } from './services/login.service';
 import { AuthenticationService } from './services/auth.service';
+import { WordTypePipe } from './pipes/word-type.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -46,7 +47,8 @@ export function tokenGetter() {
     QuizzComponent,
     NoteBookComponent,
     WordDetailComponent,
-    BoxformatPipe
+    BoxformatPipe,
+    WordTypePipe
   ],
   imports: [
     BrowserModule,
