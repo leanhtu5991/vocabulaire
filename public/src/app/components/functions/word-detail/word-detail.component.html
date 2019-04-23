@@ -5,8 +5,43 @@
     </div>
 </ng-template>
 <ng-template #wordDetail>
-  <div class="word-detail">
-      <h3 [innerHTML] = "word | wordType"></h3>
-      <h4>{{word.translate}}</h4>
-  </div>
+    <div class="word-detail">
+        <h3 [innerHTML]="word | wordType"></h3>
+        <h4>{{word.translate}}</h4>
+    </div>
+    <hr/>
+    <div class="word-detail" *ngIf="modify">
+        <form (ngSubmit)="onSubmit()">
+            <label>Modify your definition:</label>
+            <input type="text" class="form-control" [value]="word.translate" required />
+
+            <label>Modify word type:</label>
+            <select class="form-control" required>
+                <option *ngFor='let type of cw' value='{{type.id}}' [selected]="word.type == type.id">
+                    {{type.typename}}
+                </option>
+            </select>
+            <label>Move to box:</label>
+            <select class="form-control">
+                <option *ngFor='let box of cb' value='{{box.id}}' [disabled]='box.id > word.idbox'
+                    [selected]="box.id == word.idbox">{{box.name}}</option>
+            </select>
+        </form>
+        <hr/>
+    </div>
+    <div class="word-detail">
+        <div *ngIf="!modify">
+            <button class="form-control btn-modify" (click)="modify = true;">Modify</button>
+        </div>
+        <div *ngIf="!modify">
+            <button class="form-control btn-del">Delete</button>
+        </div>
+        <div *ngIf="modify">
+            <button class="form-control btn-save" (click)="saveWord()">Save</button>
+           
+        </div>
+        <div *ngIf="modify">
+            <button class="form-control btn-cancel" (click)="modify = false;">Cancel</button>
+        </div>
+    </div>
 </ng-template>
