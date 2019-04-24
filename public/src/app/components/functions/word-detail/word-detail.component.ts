@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/data/word';
-import { CONFIG_BOX } from 'src/app/data/global';
-import { CONFIG_WORD } from 'src/app/data/global';
+import { CONST } from 'src/app/data/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
 
@@ -12,27 +11,25 @@ import { WordService } from 'src/app/services/word.service';
 })
 export class WordDetailComponent implements OnInit {
   @Input() word: Word;
-  cb: any = CONFIG_BOX;
-  cw: any = CONFIG_WORD;
+  @Output() updateWord = new EventEmitter<MouseEvent>();
+  cb: any = CONST.CONFIG_BOX;
+  cw: any = CONST.CONFIG_WORD;
   modifyForm = new FormGroup({});
   modify = false;
   modWord: Word;
   hiddenMessage = true;
   fb: FormBuilder = new FormBuilder();
-  constructor(fb: FormBuilder, private wordService: WordService) {
-    
-  }
+  constructor(fb: FormBuilder, private wordService: WordService) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
+    if(!this.word) return;
     this.modify = false;
     this.modifyForm = this.fb.group({
-      translate: [this.word === undefined ? "" : this.word.translate, [Validators.required, Validators.minLength(2)]],
-      type: [this.word === undefined ? "" : this.word.type,           [Validators.required]],
-      idbox: [this.word === undefined ? 1 : this.word.idbox,          [Validators.required]]
+      translate: [this.word.translate, [Validators.required, Validators.minLength(2)]],
+      type: [this.word.type,           [Validators.required]],
+      idbox: [this.word.idbox,          [Validators.required]]
     });
   }
 
@@ -44,10 +41,10 @@ export class WordDetailComponent implements OnInit {
     if (this.modifyForm.valid) {
       this.modify = false;
       this.hiddenMessage = true;
-      this.modWord = this.modifyForm.value;
-      this.modWord.id   = this.word.id;
-      this.modWord.word = this.word.word;
+      this.modWord       = this.modifyForm.value;
+      this.modWord.id    = this.word.id;
       this.word = this.wordService.modifyWord(this.modWord);
+      this.updateWord.emit();
     } else {
       this.hiddenMessage = false;
     }

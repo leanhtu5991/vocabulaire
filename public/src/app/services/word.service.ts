@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Word } from '../data/word';
-import { LIST_WORD_EXAMPLE } from '../data/global';
+import { CONST } from '../data/global';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +9,39 @@ export class WordService {
 
   constructor() { }
 
+  public getListWord(userId : any){
+    console.log("Service Get List Word by user Id");
+    localStorage.removeItem(CONST.KEY_LISTWORD);
+    //Service get list word, then save to local storage
+    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(CONST.LIST_WORD_EXAMPLE));
+  }
+
   public saveNewWord(word : Word){
     console.log(word.word + " is saved.");
+    //Save to server...
+    //Then update localStorage
+    let lstWord = this.getCurrentWordList();
+    word.id = lstWord.length + 1;
+    lstWord.unshift(word);
+    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
   }
 
   public modifyWord(modWord : Word){
     //Update new word to list:
-    let  w = LIST_WORD_EXAMPLE.find(w => w.id == modWord.id);
+    let lstWord = this.getCurrentWordList();
+    if(lstWord.length == 0) return;
+    let w = lstWord.find(w => w.id == modWord.id);
+    if(w == null) return;
     w.translate  = modWord.translate;
     w.idbox      = modWord.idbox;
     w.type       = modWord.type;
+    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
     console.log(w.word + " is saved.");
     return w;
+  }
+
+  public getCurrentWordList(){
+    let lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
+    return lstWord == null ? Word[0] : lstWord;
   }
 }

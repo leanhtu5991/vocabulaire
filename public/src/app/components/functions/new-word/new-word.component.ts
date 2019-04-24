@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/data/word';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
-import { CONFIG_WORD } from '../../../data/global';
+import {Router} from '@angular/router';
+import { CONST } from '../../../data/global';
 @Component({
   selector: 'app-new-word',
   templateUrl: './new-word.component.html',
@@ -13,9 +14,9 @@ export class NewWordComponent implements OnInit {
   phd_word    : string = "Please enter your new word.";
   phd_define  : string = "Please enter your definition.";
   myForm = new FormGroup({});
-  cw : any = CONFIG_WORD;
+  cw : any = CONST.CONFIG_WORD;
   hiddenMessage = true;
-  constructor(private formBuilder: FormBuilder, private wordService : WordService) {
+  constructor(private formBuilder: FormBuilder, private wordService : WordService, private router: Router) {
     this.myForm = formBuilder.group({
       word:       [this.newWord.word, [Validators.required]],
       translate:  [this.newWord.translate, [Validators.required, Validators.minLength(2)]], 
@@ -34,6 +35,7 @@ export class NewWordComponent implements OnInit {
       this.newWord = this.myForm.value;
       this.newWord.idbox = 1; //Default
       this.wordService.saveNewWord( this.newWord);
+      this.router.navigate(['/notebook']); // Navigate to dashboard view
     } else {
       this.hiddenMessage = false;
     }

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Word } from '../data/word';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { CONFIG_WORD } from '../data/global';
+import { CONST } from '../data/global';
 
 @Pipe({
   name: 'wordType',
@@ -13,7 +13,7 @@ export class WordTypePipe implements PipeTransform {
     let typeWord  = '';
     let typeColor = '';
     let outputApply = '';
-    CONFIG_WORD.forEach(function(type){
+    CONST.CONFIG_WORD.forEach(function(type){
       if(type.id == word.type){
         typeWord = type.type;
         typeColor = type.color;

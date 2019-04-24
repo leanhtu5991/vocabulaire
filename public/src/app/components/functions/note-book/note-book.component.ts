@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LIST_WORD_EXAMPLE } from '../../../data/global';
-import { CONFIG_BOX } from 'src/app/data/global';
+import { CONST } from 'src/app/data/global';
+import { WordService } from 'src/app/services/word.service';
 
 @Component({
   selector: 'app-note-book',
@@ -8,10 +8,13 @@ import { CONFIG_BOX } from 'src/app/data/global';
   styleUrls: ['./note-book.component.css']
 })
 export class NoteBookComponent implements OnInit {
-  lstWord = LIST_WORD_EXAMPLE;
-  lstBox = CONFIG_BOX;
+  lstWord : any[];
+  lstBox = CONST.CONFIG_BOX;
   selectedWord : any;
-  constructor() { }
+  userId = 0;
+  constructor(private serviceWord : WordService) {
+    this.lstWord = serviceWord.getCurrentWordList();
+  }
 
   ngOnInit() {
     this.selectedWord = undefined;
@@ -23,11 +26,14 @@ export class NoteBookComponent implements OnInit {
 
   selectBoxFilter(event){
     let value = event.target.value;
-    this.lstWord = LIST_WORD_EXAMPLE;
+    this.lstWord = this.serviceWord.getCurrentWordList();
     if(value != 0) {
-
       this.lstWord = this.lstWord.filter(word => word.idbox == value);
     }
+  }
+
+  onUpdateWord(){
+    this.lstWord = this.serviceWord.getCurrentWordList();
   }
 
 }
