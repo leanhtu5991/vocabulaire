@@ -30,15 +30,28 @@ export class WordService {
     //Update new word to list:
     let lstWord = this.getCurrentWordList();
     if(lstWord.length == 0) return;
-    let w = lstWord.find(w => w.id == modWord.id);
-    if(w == null) return;
-    w.translate  = modWord.translate;
-    w.idbox      = modWord.idbox;
-    w.type       = modWord.type;
+    let index = lstWord.findIndex(w => w.id == modWord.id);
+    if(index == -1) return;
+    lstWord[index].translate  = modWord.translate;
+    lstWord[index].idbox      = modWord.idbox;
+    lstWord[index].type       = modWord.type;
     localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
-    console.log(w.word + " is saved.");
-    return w;
+    console.log(lstWord[index].word + " is saved.");
+    return lstWord[index];
   }
+
+  public removeWord(delWord : Word){
+    //Update new word to list:
+    let lstWord = this.getCurrentWordList();
+    if(lstWord.length == 0) return;
+    let index = lstWord.findIndex(w => w.id == delWord.id);
+    if(index == -1) return;
+    lstWord.splice(index, 1);
+    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
+    console.log(delWord.word + " is deleted.");
+    return lstWord;
+  }
+
 
   public getCurrentWordList(){
     let lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));

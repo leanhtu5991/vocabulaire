@@ -12,6 +12,7 @@ import { WordService } from 'src/app/services/word.service';
 export class WordDetailComponent implements OnInit {
   @Input() word: Word;
   @Output() updateWord = new EventEmitter<MouseEvent>();
+  @Output() deleteWord = new EventEmitter<Word>();
   cb: any = CONST.CONFIG_BOX;
   cw: any = CONST.CONFIG_WORD;
   modifyForm = new FormGroup({});
@@ -48,5 +49,9 @@ export class WordDetailComponent implements OnInit {
     } else {
       this.hiddenMessage = false;
     }
+  }
+
+  delWord() {
+    this.deleteWord.emit(this.word);
   }
 }

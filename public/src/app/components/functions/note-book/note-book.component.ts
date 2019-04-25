@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CONST } from 'src/app/data/global';
 import { WordService } from 'src/app/services/word.service';
+import { Word } from 'src/app/data/word';
+import { WordDetailComponent } from '../word-detail/word-detail.component';
 
 @Component({
   selector: 'app-note-book',
@@ -34,6 +36,11 @@ export class NoteBookComponent implements OnInit {
 
   onUpdateWord(){
     this.lstWord = this.serviceWord.getCurrentWordList();
+  }
+
+  onDeleteWord(w : Word){
+    this.lstWord = this.serviceWord.removeWord(w);
+    this.selectedWord = undefined;
   }
 
 }
