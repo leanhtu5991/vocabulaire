@@ -32,6 +32,7 @@ import { WordTypePipe } from './pipes/word-type.pipe';
 import { WordService } from './services/word.service';
 import { LoginService } from './services/login.service';
 import { AuthenticationService } from './services/auth.service';
+import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -54,13 +55,15 @@ export function tokenGetter() {
     ConfirmationComponent,
     BoxformatPipe,
     WordTypePipe,
-    ConfirmationComponent
+    ConfirmationComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatInputModule,
     FormsModule,
     JwtModule.forRoot({
       config: {
@@ -70,14 +73,16 @@ export function tokenGetter() {
     }),
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   
   providers: [
     DatePipe,
     LoginService,
     WordService,
-    AuthenticationService
+    AuthenticationService,
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   entryComponents: [ 
     ConfirmationComponent

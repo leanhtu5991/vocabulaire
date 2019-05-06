@@ -1,16 +1,14 @@
-.signup-container{
-    margin-top: 5%;
-    margin-bottom: 5%;
+.full-width {
+    width: 100%;
 }
 
-.signup-container form{
-    padding: 10%;
+#signupform{
+  display: block;
+  width: 50%;
+  margin: auto;
+  padding: 30px;
 }
-.btnSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
-    border: none;
-    cursor: pointer;
+
+button{
+  float: right;
 }
