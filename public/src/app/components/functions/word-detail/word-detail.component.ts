@@ -3,6 +3,8 @@ import { Word } from 'src/app/data/word';
 import { CONST } from 'src/app/data/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationComponent } from '../../shared/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-word-detail',
@@ -20,7 +22,7 @@ export class WordDetailComponent implements OnInit {
   modWord: Word;
   hiddenMessage = true;
   fb: FormBuilder = new FormBuilder();
-  constructor(fb: FormBuilder, private wordService: WordService) {}
+  constructor(fb: FormBuilder, private wordService: WordService, private dialog : MatDialog) {}
 
   ngOnInit() {}
 
@@ -51,7 +53,19 @@ export class WordDetailComponent implements OnInit {
     }
   }
 
-  delWord() {
-    this.deleteWord.emit(this.word);
+  public confirmDelete() : void {
+      const dialogRef = this.dialog.open(ConfirmationComponent, {
+        data: { 
+          title: 'Confirm Delete',
+          message : 'Do you want to delete this word from your notebook?'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          console.log('Yes clicked');
+          this.deleteWord.emit(this.word);
+        }
+      });
   }
 }
