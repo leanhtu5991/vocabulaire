@@ -1,8 +1,8 @@
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { User } from 'src/app/data/user';
 import { Router } from '@angular/router';
 import { AuthenticationService, TokenPayload } from '../../services/auth.service';
+import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
 
 @Component({
   selector: 'app-signup',
@@ -10,6 +10,7 @@ import { AuthenticationService, TokenPayload } from '../../services/auth.service
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  matcher = new MyErrorStateMatcher();
   newUser : any;
   confirmPasswordMatch: boolean = true;
   nameInput = new FormControl('', [

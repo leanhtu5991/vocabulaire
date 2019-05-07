@@ -32,7 +32,7 @@ import { WordTypePipe } from './pipes/word-type.pipe';
 import { WordService } from './services/word.service';
 import { LoginService } from './services/login.service';
 import { AuthenticationService } from './services/auth.service';
-import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSelectModule } from '@angular/material';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -74,7 +74,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   
   providers: [

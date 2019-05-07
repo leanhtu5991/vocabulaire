@@ -1,18 +1,9 @@
 import {Router} from '@angular/router';
 import { AuthenticationService, TokenPayload } from '../../services/auth.service';
 import {Component} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
+import {MyErrorStateMatcher} from '../../data/error.state.matcher';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-/** @title Input with a custom ErrorStateMatcher */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +11,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent {
   constructor(private authService : AuthenticationService, private router : Router){}
-
+  matcher = new MyErrorStateMatcher();
   emailInput = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -61,6 +52,4 @@ export class LoginComponent {
       }
     })
   }
-
-  matcher = new MyErrorStateMatcher();
 }

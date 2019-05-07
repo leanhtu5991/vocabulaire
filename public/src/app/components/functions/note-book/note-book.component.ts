@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CONST } from 'src/app/data/global';
 import { WordService } from 'src/app/services/word.service';
 import { Word } from 'src/app/data/word';
-import { WordDetailComponent } from '../word-detail/word-detail.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-note-book',
@@ -13,6 +13,7 @@ export class NoteBookComponent implements OnInit {
   lstWord : any[];
   lstBox = CONST.CONFIG_BOX;
   selectedWord : any;
+  selectedBox : any;
   userId = 0;
   constructor(private serviceWord : WordService) {
     this.lstWord = serviceWord.getCurrentWordList();
@@ -26,11 +27,10 @@ export class NoteBookComponent implements OnInit {
     this.selectedWord = word;
   }
 
-  selectBoxFilter(event){
-    let value = event.target.value;
+  selectedBoxFilter(){
     this.lstWord = this.serviceWord.getCurrentWordList();
-    if(value != 0) {
-      this.lstWord = this.lstWord.filter(word => word.idbox == value);
+    if(this.selectedBox != 0) {
+      this.lstWord = this.lstWord.filter(word => word.idbox == this.selectedBox);
     }
   }
 

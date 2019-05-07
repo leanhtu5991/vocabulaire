@@ -2,9 +2,10 @@
 <ng-template #loggedMenu>
   <div class="btn-group" style="width:100%" >
     <button style="width:10%"routerLink="/user"><i class="fa fa-home"></i></button>
-    <button style="width:30%" (click)="logout()">Log Out</button>
-    <button style="width:30%" routerLink="/userinfo">My Account</button>
-    <button style="width:30%" routerLink="/aboutus">About Us</button>
+    <button style="width:30%">Welcome {{user.name}}.</button>
+    <button style="width:20%" (click)="logout()">Log Out</button>
+    <button style="width:20%" routerLink="/userinfo">My Account</button>
+    <button style="width:20%" routerLink="/aboutus">About Us</button>
   </div>
 </ng-template>
 <ng-template #guestMenu>

@@ -1,23 +1,22 @@
-<div class="container">
-  <div class="row">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-      <label>Enter your new word:</label>
-      <input type="text" class="form-control" formControlName="word" placeholder="{{phd_word}}" required />
-
-      <label>Enter your definition:</label>
-      <input type="text" class="form-control" formControlName="translate" placeholder="{{phd_word}}" required />
-
-      <label>Select word type:</label>
-      <select formControlName="type" class="form-control" required >
-          <option *ngFor='let type of cw' value='{{type.id}}'>{{type.typename}}</option>
-      </select>
-      <br>
-      <div class="form-group">
-        <input type="submit" class="btnSubmit" value="Submit">
-      </div>
-      <div class="form-group alert alert-warning" [hidden]="hiddenMessage">
-        Please review all fields before submitting.
-      </div>
-    </form>
-  </div>
+<div id="newwordform">
+  <form [formGroup]="newwordForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+          <input matInput placeholder="Enter your new word" [formControl]="wordInput" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="wordInput.hasError('required')">
+              Please don't let this field empty.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Select word type:" [formControl]="typeInput">
+          <mat-option *ngFor='let type of cw' [value]='type.id'>{{type.typename}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Enter simple translate or explanation." [formControl]="translateInput" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="translateInput.hasError('required')">
+            Please don't let this field empty.
+        </mat-error>
+      </mat-form-field>
+      <button mat-button [disabled]='newwordForm.invalid' type="submit">Add new word</button>
+  </form>
 </div>

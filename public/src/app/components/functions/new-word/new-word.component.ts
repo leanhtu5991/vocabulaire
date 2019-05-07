@@ -1,43 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { Word } from 'src/app/data/word';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { CONST } from '../../../data/global';
+import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
+
 @Component({
   selector: 'app-new-word',
   templateUrl: './new-word.component.html',
   styleUrls: ['./new-word.component.css']
 })
 export class NewWordComponent implements OnInit {
-  newWord : Word = new Word(-1, "", "", 1, 1);
-  phd_word    : string = "Please enter your new word.";
-  phd_define  : string = "Please enter your definition.";
-  myForm = new FormGroup({});
-  cw : any = CONST.CONFIG_WORD;
-  hiddenMessage = true;
-  constructor(private formBuilder: FormBuilder, private wordService : WordService, private router: Router) {
-    this.myForm = formBuilder.group({
-      word:       [this.newWord.word, [Validators.required]],
-      translate:  [this.newWord.translate, [Validators.required, Validators.minLength(2)]], 
-      type :      [this.newWord.type, [Validators.required]]
-    });
-    }
 
-  ngOnInit() {}
+  cw = CONST.CONFIG_WORD;
+  matcher = new MyErrorStateMatcher();
 
-  onSubmit()
-  {
-    console.log("Form submitted.");
-    if (this.myForm.valid)
-    {
-      this.hiddenMessage = true;
-      this.newWord = this.myForm.value;
-      this.newWord.idbox = 1; //Default
-      this.wordService.saveNewWord( this.newWord);
-      this.router.navigate(['/notebook']); // Navigate to dashboard view
-    } else {
-      this.hiddenMessage = false;
-    }
+  wordInput = new FormControl('', Validators.required);
+  translateInput = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  typeInput = new FormControl('', Validators.required);
+
+  newwordForm = new FormGroup({
+    word: this.wordInput,
+    translate: this.translateInput,
+    type: this.typeInput
+  });
+
+  constructor(private wordService: WordService, private router: Router) {}
+
+  ngOnInit() { }
+
+  onSubmit() {
+    let newWord = this.newwordForm.value;
+    newWord.idbox = 1; //Default
+    this.wordService.saveNewWord(newWord);
+    this.router.navigate(['/notebook']); // Navigate to dashboard user view
   }
 }
