@@ -1,6 +1,20 @@
+import { User, Role, Civil } from './user';
+
+export const USER_TEST = new User(
+    1,
+    "Jean [TEST USER]",
+    "jp@icloud.com",
+    new Date("11/10/1997"),
+    "0655254122",
+    Role.User,
+    new Date("10/10/2019"),
+    Civil.Man
+);
+
 export const CONST = Object.freeze({
     //Key
     KEY_LISTWORD : "listWord",
+    CURRENT_USER : "currentUser",
     
     //Data Sample:
     CONFIG_WORD : [
@@ -20,5 +34,6 @@ export const CONST = Object.freeze({
         {id: 3, word: 'love', translate : "aimer", idbox : 2, type : 2},
         {id: 4, word: 'small', translate : "petit", idbox : 2, type : 3},
         {id: 5, word: 'friendly', translate : "amical", idbox : 2, type : 4}
-    ]
+    ],
+    USER_TEST : USER_TEST
 });

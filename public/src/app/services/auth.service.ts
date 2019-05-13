@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { CONST } from '../data/global';
 
 interface TokenResponse {
   token: string;
@@ -84,6 +85,11 @@ export class AuthenticationService {
     localStorage.removeItem(this.tokenStorageName);
     console.log(localStorage)
     this.router.navigateByUrl('/');
+  }
+
+  public getCurrentUser(){
+    //TEST
+    return JSON.parse(localStorage.getItem(CONST.CURRENT_USER));
   }
 
 }

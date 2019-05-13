@@ -3,17 +3,24 @@ interface question {
     ask: string,
     answer: string,
     response: string;
-    status: result
+    status: result;
 }
 
-enum typeQuestion {
+export enum typeQuestion {
     MULTIPLE_CHOICE,
     ANSWER
 }
 
-enum result {
+export enum result {
     CORRECT,
     INCORRECT
+}
+
+export enum responseQCM {
+    optionA = "A",
+    optionB = "B",
+    optionC = "C",
+    optionD = "D"
 }
 
 export class Qcm implements question {
@@ -22,23 +29,21 @@ export class Qcm implements question {
     answer: string;
     response: string;
     status: result;
+    optionA: string;
+    optionB: string;
+    optionC: string;
+    optionD: string;
 
-    option: {
-        A: string,
-        B: string,
-        C: string,
-        D: string
-    }
     constructor(ask: string,
         optionA: string, optionB: string,
         optionC: string, optionD: string,
-        answer: string) {
+        answer: responseQCM) {
         this.type = typeQuestion.MULTIPLE_CHOICE;
         this.ask = ask;
-        this.option.A = optionA;
-        this.option.B = optionB;
-        this.option.C = optionC;
-        this.option.D = optionD;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
         this.answer = answer;
     }
 }

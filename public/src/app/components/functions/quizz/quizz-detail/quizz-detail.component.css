@@ -1,0 +1,24 @@
+.row-option{
+    display: block; 
+    width: 90%;
+    margin-top: 10px;
+}
+
+button.option {
+    width: 45%;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    min-height: 40px;
+    margin-left: 10px;
+}
+
+.selected {
+    color :#273c75;
+}
+
+.submit{
+    width: 70px;
+    float: right;
+    margin-right: 50px;
+}

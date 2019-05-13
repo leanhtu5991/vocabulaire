@@ -9,6 +9,8 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { MainPageUserComponent } from './components/main-page-user/main-page-user.component';
 import { NewWordComponent } from './components/functions/new-word/new-word.component';
 import { NoteBookComponent } from './components/functions/note-book/note-book.component';
+import { QuizzComponent } from './components/functions/quizz/quizz.component';
+import { QuizzDetailComponent } from './components/functions/quizz/quizz-detail/quizz-detail.component';
 
 const routes: Routes = [
   {path : '',                   component : HeaderComponent,          outlet : "header"},
@@ -19,7 +21,9 @@ const routes: Routes = [
   {path : 'login',              component : LoginComponent},
   {path : 'signup',             component : SignupComponent},
   {path : 'aboutus',            component : AboutUsComponent},
-  {path : 'userinfo',           component : UserInfoComponent}
+  {path : 'userinfo',           component : UserInfoComponent},
+  {path : 'quizz',              component : QuizzComponent},
+  { path: 'quizzDetail/:id',        component : QuizzDetailComponent}
 ];
 
 @NgModule({

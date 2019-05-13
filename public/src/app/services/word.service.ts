@@ -52,7 +52,6 @@ export class WordService {
     return lstWord;
   }
 
-
   public getCurrentWordList(){
     let lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
     return lstWord == null ? Word[0] : lstWord;

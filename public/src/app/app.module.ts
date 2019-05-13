@@ -6,10 +6,13 @@ import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
-
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, 
+  MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule } from '@angular/material';
+
+
 //Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,14 +28,16 @@ import { QuizzComponent } from './components/functions/quizz/quizz.component';
 import { NoteBookComponent } from './components/functions/note-book/note-book.component';
 import { WordDetailComponent } from './components/functions/word-detail/word-detail.component';
 import { ConfirmationComponent } from './components/shared/confirmation/confirmation.component';
+import { QuizzDetailComponent } from './components/functions/quizz/quizz-detail/quizz-detail.component';
+
 //Pipe
 import { BoxformatPipe } from './pipes/boxformat.pipe';
 import { WordTypePipe } from './pipes/word-type.pipe';
 //Service
 import { WordService } from './services/word.service';
-import { LoginService } from './services/login.service';
+import { QuizzService } from './services/quizz.service';
 import { AuthenticationService } from './services/auth.service';
-import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSelectModule } from '@angular/material';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,7 +61,7 @@ export function tokenGetter() {
     BoxformatPipe,
     WordTypePipe,
     ConfirmationComponent,
-    
+    QuizzDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -75,13 +80,17 @@ export function tokenGetter() {
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule,
+    MatRadioModule,
+    MatCardModule,
+    MatDividerModule
   ],
   
   providers: [
     DatePipe,
-    LoginService,
     WordService,
+    QuizzService,
     AuthenticationService,
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
