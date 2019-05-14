@@ -15,14 +15,18 @@ export class NewWordComponent implements OnInit {
   cw = CONST.CONFIG_WORD;
   matcher = new MyErrorStateMatcher();
 
-  wordInput = new FormControl('', Validators.required);
-  translateInput = new FormControl('', [Validators.required, Validators.minLength(2)]);
-  typeInput = new FormControl('', Validators.required);
-
+  wordInput       = new FormControl('', Validators.required);
+  translateInput  = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  typeInput       = new FormControl('', Validators.required);
+  example1Input   = new FormControl('');
+  example2Input   = new FormControl('');
+  
   newwordForm = new FormGroup({
     word: this.wordInput,
     translate: this.translateInput,
-    type: this.typeInput
+    type: this.typeInput,
+    example1 : this.example1Input,
+    example2 : this.example2Input
   });
 
   constructor(private wordService: WordService, private router: Router) {}

@@ -17,6 +17,12 @@
             Please don't let this field empty.
         </mat-error>
       </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Enter an example" [formControl]="example1Input">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Enter another example" [formControl]="example2Input">
+      </mat-form-field>
       <button mat-button [disabled]='newwordForm.invalid' type="submit">Add new word</button>
   </form>
 </div>
