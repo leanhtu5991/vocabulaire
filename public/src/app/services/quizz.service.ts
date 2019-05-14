@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Qcm, responseQCM } from '../data/question';
+import { QuestionQCM, QCMResponse } from '../data/question';
 import { WordService } from './word.service';
 
 @Injectable({
@@ -21,8 +21,8 @@ export class QuizzService {
       let oB = "BBB";
       let oC = "CCC";
       let oD = "DDD";
-      let a  = responseQCM.optionA;
-      let q = new Qcm(ask, oA, oB, oC, oD, a);
+      let s  = QCMResponse.optionA;
+      let q = new QuestionQCM(ask, oA, oB, oC, oD, s);
       lstQuestion.push(q);
     });
     return lstQuestion;

@@ -4,7 +4,7 @@ import { CONST } from 'src/app/data/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationComponent } from '../../shared/confirmation/confirmation.component';
+import { ConfirmationComponent } from '../../pop-up/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-word-detail',

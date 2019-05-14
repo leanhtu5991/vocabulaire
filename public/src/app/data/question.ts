@@ -1,49 +1,50 @@
-interface question {
-    type: typeQuestion,
-    ask: string,
-    answer: string,
-    response: string;
-    status: result;
+interface Question {
+    type    : QuestionType,
+    ask     : string,
+    answer  : string,
+    solution: string;
+    result  : QuestionResult;
 }
 
-export enum typeQuestion {
+export enum QuestionType {
     MULTIPLE_CHOICE,
     ANSWER
 }
 
-export enum result {
+export enum QuestionResult {
     CORRECT,
     INCORRECT
 }
 
-export enum responseQCM {
+export enum QCMResponse {
     optionA = "A",
     optionB = "B",
     optionC = "C",
     optionD = "D"
 }
 
-export class Qcm implements question {
-    type: typeQuestion;
-    ask: string;
-    answer: string;
-    response: string;
-    status: result;
-    optionA: string;
-    optionB: string;
-    optionC: string;
-    optionD: string;
+export class QuestionQCM implements Question {
+    type    : QuestionType;
+    ask     : string;
+    answer  : string;
+    solution: string;
+    result  : QuestionResult;
+
+    optionA : string;
+    optionB : string;
+    optionC : string;
+    optionD : string;
 
     constructor(ask: string,
         optionA: string, optionB: string,
         optionC: string, optionD: string,
-        answer: responseQCM) {
-        this.type = typeQuestion.MULTIPLE_CHOICE;
+        solution: QCMResponse) {
+        this.type = QuestionType.MULTIPLE_CHOICE;
         this.ask = ask;
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;
         this.optionD = optionD;
-        this.answer = answer;
+        this.solution = solution;
     }
 }

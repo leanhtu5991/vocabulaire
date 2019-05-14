@@ -14,4 +14,4 @@
     <button class="option" mat-raised-button (click)="onSelect($event, optionD)">{{question.optionD}}</button>
 </div>
 
-<button class="submit" mat-raised-button color="warn" [disabled]='selected == null' (click)="submit()">Submit</button>
+<button class="submit" mat-raised-button color="warn" [disabled]='selected == null' (click)="submit()">{{buttonLabel}}</button>

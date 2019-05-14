@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, 
   MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule } from '@angular/material';
 
-
 //Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,8 +26,9 @@ import { NewWordComponent } from './components/functions/new-word/new-word.compo
 import { QuizzComponent } from './components/functions/quizz/quizz.component';
 import { NoteBookComponent } from './components/functions/note-book/note-book.component';
 import { WordDetailComponent } from './components/functions/word-detail/word-detail.component';
-import { ConfirmationComponent } from './components/shared/confirmation/confirmation.component';
+import { ConfirmationComponent } from './components/pop-up/confirmation/confirmation.component';
 import { QuizzDetailComponent } from './components/functions/quizz/quizz-detail/quizz-detail.component';
+import { QuizzResultComponent } from './components/pop-up/quizz-result/quizz-result.component';
 
 //Pipe
 import { BoxformatPipe } from './pipes/boxformat.pipe';
@@ -37,6 +37,7 @@ import { WordTypePipe } from './pipes/word-type.pipe';
 import { WordService } from './services/word.service';
 import { QuizzService } from './services/quizz.service';
 import { AuthenticationService } from './services/auth.service';
+
 
 
 export function tokenGetter() {
@@ -61,7 +62,8 @@ export function tokenGetter() {
     BoxformatPipe,
     WordTypePipe,
     ConfirmationComponent,
-    QuizzDetailComponent
+    QuizzDetailComponent,
+    QuizzResultComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ export function tokenGetter() {
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   entryComponents: [ 
-    ConfirmationComponent
+    ConfirmationComponent,
+    QuizzResultComponent
   ],
   bootstrap: [AppComponent]
 })
