@@ -16,6 +16,7 @@ export class QuizzDetailComponent implements OnInit {
   lstQuestion : any;
   nbQuestion : any;
   totalTrue = 0;
+  score = 0;
   question : any;
   selected : QCMResponse;
   indexQuestion = 0;
@@ -54,6 +55,7 @@ export class QuizzDetailComponent implements OnInit {
     if(this.question.answer === this.question.solution){
       this.lstQuestion[this.indexQuestion].result = QuestionResult.CORRECT;
       this.totalTrue++;
+      this.score += 10;
     } else {
       this.lstQuestion[this.indexQuestion].result = QuestionResult.INCORRECT;
     }
@@ -82,7 +84,7 @@ export class QuizzDetailComponent implements OnInit {
   public showResult() : void {
     const dialogRef = this.dialog.open(QuizzResultComponent, {
       data: { 
-        score: 100,
+        score: this.score,
         totalQuestion : this.nbQuestion,
         totalTrue : this.totalTrue
       }
