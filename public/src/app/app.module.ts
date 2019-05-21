@@ -10,7 +10,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, 
-  MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule } from '@angular/material';
+  MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule, MatProgressBarModule } from '@angular/material';
 
 //Component
 import { AppRoutingModule } from './app-routing.module';
@@ -86,7 +86,8 @@ export function tokenGetter() {
     MatListModule,
     MatRadioModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressBarModule
   ],
   
   providers: [

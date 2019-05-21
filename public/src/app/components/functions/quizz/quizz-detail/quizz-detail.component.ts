@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizzService } from 'src/app/services/quizz.service';
-import { MatCardModule, MatRadioModule, MatDividerModule, MatDialog } from '@angular/material';
+import { MatCardModule, MatRadioModule, MatDividerModule, MatDialog, MatProgressBarModule } from '@angular/material';
 import { QCMResponse } from 'src/app/data/question';
 import { QuestionResult } from 'src/app/data/question';
 import { QuizzResultComponent } from '../../../pop-up/quizz-result/quizz-result.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-quizz-detail',
@@ -25,6 +26,7 @@ export class QuizzDetailComponent implements OnInit {
   optionB : any = QCMResponse.optionB;
   optionC : any = QCMResponse.optionC;
   optionD : any = QCMResponse.optionD;
+  timing : number = 0;
 
   constructor(private route: ActivatedRoute, private quizzService : QuizzService, private dialog : MatDialog, private router : Router) { }
 
@@ -35,23 +37,24 @@ export class QuizzDetailComponent implements OnInit {
     this.nbQuestion = this.lstQuestion.length;
     this.question = this.lstQuestion[this.indexQuestion];
     console.log("Created " + this.nbQuestion + " questions");
+    let time100 = Array.from({length: 100}, (v, i) => i + 1);
+    console.log(time100);
   }
 
   onSelect(event, option){
     this.resetForm();
     if(option == this.selected){
+      //Unselect selected option:
       this.selected = null;
     } else {
       this.selected = option;
       event.target.style.color = "red";
       event.target.style.fontSize = "20px";  
     }
-    this.question.answer = this.selected;
   }
 
   submit(){
-    this.resetForm();
-    this.selected = null;
+    this.question.answer = this.selected;
     if(this.question.answer === this.question.solution){
       this.lstQuestion[this.indexQuestion].result = QuestionResult.CORRECT;
       this.totalTrue++;
@@ -59,17 +62,25 @@ export class QuizzDetailComponent implements OnInit {
     } else {
       this.lstQuestion[this.indexQuestion].result = QuestionResult.INCORRECT;
     }
-    this.indexQuestion += 1;
-    if(this.indexQuestion == this.nbQuestion){
+    this.nextQuestion();
+  }
+
+  nextQuestion(){
+    this.resetForm();
+    this.selected = null;
+    this.timing = 0;
+    if(this.indexQuestion + 1 == this.nbQuestion){
       console.log("Finished");
       console.log(this.lstQuestion);
       this.showResult();
     } else {
+      this.indexQuestion += 1;
       this.question = this.lstQuestion[this.indexQuestion];
-      if(this.indexQuestion == this.nbQuestion - 1){
+      if(this.indexQuestion + 1 == this.nbQuestion){
         this.buttonLabel = "Finish Test";
       }
     }
+    this.timing = 0;
   }
 
   resetForm(){
@@ -93,6 +104,6 @@ export class QuizzDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.router.navigate(['user']);
     });
-}
+  }
 
 }
