@@ -3,7 +3,7 @@ import { CONST } from 'src/app/data/global';
 import { WordService } from 'src/app/services/word.service';
 import { Word } from 'src/app/data/word';
 import { WordDetailComponent } from '../word-detail/word-detail.component';
-
+import { AuthenticationService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-note-book',
   templateUrl: './note-book.component.html',
@@ -13,12 +13,24 @@ export class NoteBookComponent implements OnInit {
   lstWord : any[];
   lstBox = CONST.CONFIG_BOX;
   selectedWord : any;
-  userId = 0;
-  constructor(private serviceWord : WordService) {
+  userId;
+  constructor(private serviceWord : WordService, private authenticationService: AuthenticationService) {
     this.lstWord = serviceWord.getCurrentWordList();
   }
 
   ngOnInit() {
+    this.authenticationService.profile().subscribe(data => {
+      console.log(data)
+      this.userId = data.id
+      console.log(this.userId)
+      this.serviceWord.getListWord(this.userId).subscribe(datas => {
+        console.log('here', this.userId)
+        this.lstWord = datas;
+        console.log(datas)
+        // console.log(datas)
+      })
+    })
+    // console.log(this.userId)
     this.selectedWord = undefined;
   }
 

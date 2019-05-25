@@ -30,23 +30,19 @@ export class LoginComponent implements OnInit {
   
   onSubmit(){
     this.user = this.logInForm.value;
-    console.log(this.user)
     this.authService.login(this.user).subscribe(data => {
-      console.log(data)
       if(data.status == 'success'){
+        console.log('succes')
         if(data.user.isAdmin){
-          console.log(data)
           setTimeout(() => {
             this.router.navigate(['user']); // Navigate to dashboard view
           }, 750);
         } else {
-          console.log(data)
           setTimeout(() => {
             this.router.navigate(['']); // Navigate to dashboard view
           }, 750);
         }
       } else {
-        console.log(data.message)
       }
     })
   }

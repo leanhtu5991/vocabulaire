@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
-
+import { User } from '../data/user';
+import { Observable } from 'rxjs-compat/Observable';
 interface TokenResponse {
   token: string;
 }
@@ -75,7 +76,7 @@ export class AuthenticationService {
     return this.request('post', 'login', user);
   }
 
-  public profile() {
+  public profile() : Observable<any>{
     return this.request('get', 'profile');
   }
 

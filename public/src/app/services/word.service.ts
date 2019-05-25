@@ -1,29 +1,44 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Word } from '../data/word';
 import { CONST } from '../data/global';
-
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs-compat/Observable';
 @Injectable({
   providedIn: 'root'
 })
 export class WordService {
+  private headers = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  public getListWord(userId : any){
-    console.log("Service Get List Word by user Id");
-    localStorage.removeItem(CONST.KEY_LISTWORD);
+  public getListWord(userId){
+    console.log('hhh', userId)
+    // console.log("Service Get List Word by user Id");
+    // localStorage.removeItem(CONST.KEY_LISTWORD);
     //Service get list word, then save to local storage
-    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(CONST.LIST_WORD_EXAMPLE));
+    // localStorage.setItem(CONST.KEY_LISTWORD, CONST.LIST_WORD_EXAMPLE);
+    return this.http.get('/api/getWordByUser/'+userId, this.headers);
   }
 
-  public saveNewWord(word : Word){
+  public saveNewWord(userId, word){
     console.log(word.word + " is saved.");
+    return this.http.post('/api/saveWordToUser/'+userId, word);
+    // const request = base.pipe(
+    //   map((data: any) => {
+    //     if(data)
+    //       return data;
+    //     else
+    //       return {'starf': true}
+    //   })
+    // );
+    // return request;
     //Save to server...
     //Then update localStorage
-    let lstWord = this.getCurrentWordList();
-    word.id = lstWord.length + 1;
-    lstWord.unshift(word);
-    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
+    // let lstWord = this.getCurrentWordList();
+    // word.id = lstWord.length + 1;
+    // lstWord.unshift(word);
+    // localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
+    
   }
 
   public modifyWord(modWord : Word){
@@ -35,7 +50,7 @@ export class WordService {
     lstWord[index].translate  = modWord.translate;
     lstWord[index].idbox      = modWord.idbox;
     lstWord[index].type       = modWord.type;
-    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
+    localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
     console.log(lstWord[index].word + " is saved.");
     return lstWord[index];
   }
@@ -47,14 +62,14 @@ export class WordService {
     let index = lstWord.findIndex(w => w.id == delWord.id);
     if(index == -1) return;
     lstWord.splice(index, 1);
-    localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
+    localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
     console.log(delWord.word + " is deleted.");
     return lstWord;
   }
 
 
   public getCurrentWordList(){
-    let lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
+    let lstWord = localStorage.getItem(CONST.KEY_LISTWORD);
     return lstWord == null ? Word[0] : lstWord;
   }
 }

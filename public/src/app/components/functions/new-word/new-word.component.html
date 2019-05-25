@@ -11,6 +11,12 @@
       <select formControlName="type" class="form-control" required >
           <option *ngFor='let type of cw' value='{{type.id}}'>{{type.typename}}</option>
       </select>
+
+      <label>Enter your example1:</label>
+      <input type="text" class="form-control" formControlName="example1" placeholder="{{phd_word}}" required />
+
+      <label>Enter your example2:</label>
+      <input type="text" class="form-control" formControlName="example2" placeholder="{{phd_word}}" required />
       <br>
       <div class="form-group">
         <input type="submit" class="btnSubmit" value="Submit">
