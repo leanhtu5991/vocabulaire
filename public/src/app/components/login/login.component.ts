@@ -1,45 +1,46 @@
-import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { AuthenticationService, TokenPayload } from '../../services/auth.service';
+import {Component} from '@angular/core';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
+import {MyErrorStateMatcher} from '../../data/error.state.matcher';
+import { CONST } from 'src/app/data/global';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  emailInput : String;
-  user : any;
-  constructor(
-    private authService: AuthenticationService,
-    private router: Router
-  ) { 
+export class LoginComponent {
+  constructor(private authService : AuthenticationService, private router : Router){}
+  matcher = new MyErrorStateMatcher();
+  emailInput = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
-  }
+  passwordInput = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6)
+  ]);
 
-  logInForm = new FormGroup({
-    email    : new FormControl("", Validators.required),
-    password : new FormControl("", Validators.required)
+  loginForm = new FormGroup({
+    email    : this.emailInput,
+    password : this.passwordInput
   });
 
-  ngOnInit() {
-    this.emailInput = "youremail@example.com";
-  }
-  
+  user : any;
+
   onSubmit(){
-    this.user = this.logInForm.value;
+    this.user = this.loginForm.value;
     this.authService.login(this.user).subscribe(data => {
       if(data.status == 'success'){
-        console.log('succes')
         if(data.user.isAdmin){
           setTimeout(() => {
             this.router.navigate(['user']); // Navigate to dashboard view
           }, 750);
         } else {
           setTimeout(() => {
-            this.router.navigate(['']); // Navigate to dashboard view
+            this.router.navigate(['user']); // Navigate to dashboard view
           }, 750);
         }
       } else {

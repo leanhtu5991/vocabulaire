@@ -7,7 +7,6 @@ export class Word{
 	example1 : string;
 	example2 : string;
 	// iduser : number;
-	// idbox : number;
 	// validatetime : number;
     // status : number;
     

@@ -1,0 +1,10 @@
+<div mat-dialog-title>
+    {{title}}
+   </div>
+  <div mat-dialog-content>
+    <p>You final score is : {{score}} points.</p>
+    <p>You have {{totalTrue}} / {{totalQuestion}}</p>
+   </div>
+   <div mat-dialog-actions>
+     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+   </div>

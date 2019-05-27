@@ -87,4 +87,9 @@ export class AuthenticationService {
     this.router.navigateByUrl('/');
   }
 
+  // public getCurrentUser(){
+  //   //TEST
+  //   return JSON.parse(localStorage.getItem(CONST.CURRENT_USER));
+  // }
+
 }

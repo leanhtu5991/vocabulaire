@@ -1,12 +1,16 @@
 <div class="container">
   <div class="row">MY NOTEBOOK</div>
   <div class="row">
-    <label>Filter by</label>
-    <select class="form-control" (change)="selectBoxFilter($event)">
-      <option selected="true" value="0">All words</option>
-      <option *ngFor='let box of lstBox' value='{{box.id}}'>{{box.name}}</option>
-    </select>
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedBox" (ngModelChange)="selectedBoxFilter()"  placeholder="Filter word by:">
+        <mat-option value='0'>All word</mat-option>
+        <mat-option *ngFor="let box of lstBox" [value]="box.id">
+          {{box.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
+  
   <div class="row">
     <div class="col-sm-6 col-md-6 col-lg-6">
       <table class="table">
@@ -29,7 +33,7 @@
       </table>
     </div>
     <div class="col-sm-6 col-md-6 col-lg-6">
-      <app-word-detail [word]="selectedWord" (updateWord)="onUpdateWord()" (deleteWord)="onDeleteWord($event)"></app-word-detail>
+      <app-word-detail [word]="selectedWord" (updateWord)="onUpdateWord()"></app-word-detail>
     </div>
   </div>
 </div>

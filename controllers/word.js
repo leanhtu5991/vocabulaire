@@ -1,4 +1,6 @@
 var wordModel = require('../models/word');
+var db = require('../db');
+
 module.exports.getAllWord = function (req, res) {
     wordModel.findAll()
     .then(words => res.status(200).json(words))
@@ -30,8 +32,50 @@ module.exports.saveWordToUser = function(req, res){
         iduser: userId
     });
     console.log('word', newWord)
-    newWord.save().then(result => res.status(200).json({staus: "success", messsage: "word update"}))
+    newWord.save().then(result => res.status(200).json({status: "success", messsage: "word update"}))
     .catch(error => res.status(400).json(error));;
     // console.log('word',req.body.word);
     res.json({'result': "succes"})
+}
+
+module.exports.deleteWord = function(req, res){
+    var wordId = req.params.wordId;
+    wordModel.destroy({ where: { id: wordId } })
+    .then(
+        word => {
+            res.status(200).json({status: "success", messsage: "delete"});
+            console.log('delete',word);
+        }
+    )
+    .catch(
+        error => {
+            res.status(400).json(error);
+            console.log("word can't delete");
+        }
+    );
+}
+
+module.exports.updateStatutWord = function(req, res){
+    var wordId = req.params.wordId;
+    var result = req.params.result;
+    console.log(wordId);
+    console.log(result)
+    wordModel.findOne({ where: { id: wordId } })
+        .then(
+            word => {
+            if(result == 1){
+                
+            }
+            else if(result == 0){
+
+            }
+            res.status(200).json({status: "success", messsage: wordId});
+        })
+        .catch(
+            error => {
+                res.status(400).json(error);
+                console.log("word can't find");
+            }
+        );
+    // res.status(200).json({status: "success", messsage: wordId});
 }

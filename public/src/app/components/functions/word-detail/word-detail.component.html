@@ -36,7 +36,7 @@
             <button class="form-control btn-modify" (click)="modify = true;">Modify</button>
         </div>
         <div *ngIf="!modify">
-            <button class="form-control btn-del" (click)="delWord()">Delete</button>
+            <button class="form-control btn-del" (click)="confirmDelete()">Delete</button>
         </div>
         <div *ngIf="modify">
             <button class="form-control btn-save" (click)="submitForm()">Save</button>

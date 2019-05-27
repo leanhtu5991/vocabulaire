@@ -1,18 +1,23 @@
-<div class="container">
-  <div class="row">
-    <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <input type="text" class="form-control" formControlName="email" placeholder="{{emailInput}}" required>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" formControlName="password" placeholder="Your Password *" required />
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btnSubmit" [disabled]="!logInForm.valid" value="Submit">
-        </div>
-        <div class="form-group">
-            <a href="#" class="ForgetPwd">Forget Password?</a>
-        </div>
+<div id="loginform">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Email" [formControl]="emailInput" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="emailInput.hasError('email') && !emailInput.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailInput.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+                <input matInput placeholder="Password" type="password" [formControl]="passwordInput" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="passwordInput.hasError('minlength') && !passwordInput.hasError('required')">
+                    Password must have at least 6 digits.
+                </mat-error>
+                <mat-error *ngIf="passwordInput.hasError('required')">
+                    Password is required.
+                </mat-error>
+        </mat-form-field>
+        <button mat-button [disabled]='loginForm.invalid' type="submit">Login</button>
     </form>
-  </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { User } from 'src/app/data/user';
 import { Router } from '@angular/router';
 import { AuthenticationService, TokenPayload } from '../../services/auth.service';
+import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
 
 @Component({
   selector: 'app-signup',
@@ -10,33 +10,49 @@ import { AuthenticationService, TokenPayload } from '../../services/auth.service
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  matcher = new MyErrorStateMatcher();
   newUser : any;
-  emailInput : String;
+  confirmPasswordMatch: boolean = true;
+  nameInput = new FormControl('', [
+    Validators.required
+  ]);
+
+  emailInput = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  password1Input = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6)
+  ]);
+
+  password2Input = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6)
+  ]);
+
+  signupForm = new FormGroup({
+    name      : this.nameInput,
+    email    : this.emailInput,
+    password1 : this.password1Input,
+    password2 : this.password2Input
+  });
+
+  user : any;
+
   constructor(
     private authService: AuthenticationService,
     private router: Router
   ) 
-  {
-    this.emailInput = "youremail@example.com";
-  }
-
-  signUpForm = new FormGroup({
-    name     : new FormControl("", Validators.required),
-    email    : new FormControl("", Validators.required),
-    password1 : new FormControl("", Validators.required),
-    password2 : new FormControl("", Validators.required)
-  });
+  {}
 
   ngOnInit() {
     
   }
   
   onSubmit(){
-    this.newUser = this.signUpForm.value;
-    if(this.newUser.password1 != this.newUser.password2){
-      console.log("Password not match");
-      return false;
-    }
+    this.newUser = this.signupForm.value;
     this.newUser.password = this.newUser.password1;
     this.newUser.civil = 1;
     this.newUser.tel = "123456";
@@ -45,5 +61,9 @@ export class SignupComponent implements OnInit {
     this.authService.register(this.newUser).subscribe(data => {
       console.log(data)
     })
+  }
+
+  checkConfirmPassword(e){
+    this.confirmPasswordMatch = (e.target.value == this.password1Input.value);
   }
 }

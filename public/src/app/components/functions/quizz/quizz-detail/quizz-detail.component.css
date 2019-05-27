@@ -1,0 +1,22 @@
+button.option {
+    width: 80%;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    min-height: 40px;
+    margin-left: 10px;
+    margin-bottom : 20px;
+}
+
+button.submit{
+    width: auto;
+    float: right;
+}
+
+.submitzone{
+    margin-top: 30px;
+}
+
+.selected {
+    color :#273c75;
+}

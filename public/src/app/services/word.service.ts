@@ -16,7 +16,7 @@ export class WordService {
     // console.log("Service Get List Word by user Id");
     // localStorage.removeItem(CONST.KEY_LISTWORD);
     //Service get list word, then save to local storage
-    // localStorage.setItem(CONST.KEY_LISTWORD, CONST.LIST_WORD_EXAMPLE);
+    // 
     return this.http.get('/api/getWordByUser/'+userId, this.headers);
   }
 
@@ -43,33 +43,36 @@ export class WordService {
 
   public modifyWord(modWord : Word){
     //Update new word to list:
-    let lstWord = this.getCurrentWordList();
-    if(lstWord.length == 0) return;
-    let index = lstWord.findIndex(w => w.id == modWord.id);
-    if(index == -1) return;
-    lstWord[index].translate  = modWord.translate;
-    lstWord[index].idbox      = modWord.idbox;
-    lstWord[index].type       = modWord.type;
-    localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
-    console.log(lstWord[index].word + " is saved.");
-    return lstWord[index];
+    // let lstWord = this.getCurrentWordList();
+    // if(lstWord.length == 0) return;
+    // let index = lstWord.findIndex(w => w.id == modWord.id);
+    // if(index == -1) return;
+    // lstWord[index].translate  = modWord.translate;
+    // lstWord[index].idbox      = modWord.idbox;
+    // lstWord[index].type       = modWord.type;
+    // localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
+    // console.log(lstWord[index].word + " is saved.");
+    // return lstWord[index];
   }
 
-  public removeWord(delWord : Word){
+  public deleteWord(delWord : Word){
+    return this.http.delete('/api/deleteWord/'+delWord.id, this.headers);
     //Update new word to list:
-    let lstWord = this.getCurrentWordList();
-    if(lstWord.length == 0) return;
-    let index = lstWord.findIndex(w => w.id == delWord.id);
-    if(index == -1) return;
-    lstWord.splice(index, 1);
-    localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
-    console.log(delWord.word + " is deleted.");
-    return lstWord;
+    // let lstWord = this.getCurrentWordList();
+    // if(lstWord.length == 0) return;
+    // let index = lstWord.findIndex(w => w.id == delWord.id);
+    // if(index == -1) return;
+    // lstWord.splice(index, 1);
+    // localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
+    // console.log(delWord.word + " is deleted.");
+    // return lstWord;
   }
 
-
-  public getCurrentWordList(){
-    let lstWord = localStorage.getItem(CONST.KEY_LISTWORD);
-    return lstWord == null ? Word[0] : lstWord;
+  public getCurrentWordList(userId: any){
+    return JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
+    //return this.http.get('/api/getWordByUser/'+userId, this.headers);
+  }
+  public updateStatutWord(wordID, result){
+    return this.http.post('/api/updateStatutWord/'+wordID+'/'+result, this.headers);
   }
 }

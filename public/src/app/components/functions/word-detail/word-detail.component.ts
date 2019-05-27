@@ -3,6 +3,9 @@ import { Word } from 'src/app/data/word';
 import { CONST } from 'src/app/data/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationComponent } from '../../pop-up/confirmation/confirmation.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-word-detail',
@@ -20,9 +23,14 @@ export class WordDetailComponent implements OnInit {
   modWord: Word;
   hiddenMessage = true;
   fb: FormBuilder = new FormBuilder();
-  constructor(fb: FormBuilder, private wordService: WordService) {}
+  userId: any;
+  constructor(fb: FormBuilder, private wordService: WordService, private dialog : MatDialog, private authenticationService : AuthenticationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authenticationService.profile().subscribe(data => {
+      this.userId = data.id;
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if(!this.word) return;
@@ -44,14 +52,35 @@ export class WordDetailComponent implements OnInit {
       this.hiddenMessage = true;
       this.modWord       = this.modifyForm.value;
       this.modWord.id    = this.word.id;
-      this.word = this.wordService.modifyWord(this.modWord);
+      // this.word = this.wordService.modifyWord(this.modWord);
       this.updateWord.emit();
     } else {
       this.hiddenMessage = false;
     }
   }
 
-  delWord() {
-    this.deleteWord.emit(this.word);
+  public confirmDelete() : void {
+    console.log(this.word.id)
+      const dialogRef = this.dialog.open(ConfirmationComponent, {
+        data: { 
+          title: 'Confirm Delete',
+          message : 'Do you want to delete this word from your notebook?'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          console.log('Yes clicked');
+          this.wordService.deleteWord(this.word).subscribe(datas => {
+            localStorage.removeItem(CONST.KEY_LISTWORD);
+            this.wordService.getListWord(this.userId).subscribe(datas => {
+              let lstWord = datas;
+              localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(lstWord));
+            })  
+            console.log(datas)
+          })  
+          // this.deleteWord.emit(this.word);
+        }
+      });
   }
 }

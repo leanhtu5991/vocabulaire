@@ -4,33 +4,37 @@ import { WordService } from 'src/app/services/word.service';
 import { Word } from 'src/app/data/word';
 import { WordDetailComponent } from '../word-detail/word-detail.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import {MatSelectModule} from '@angular/material/select';
+
 @Component({
   selector: 'app-note-book',
   templateUrl: './note-book.component.html',
   styleUrls: ['./note-book.component.css']
 })
 export class NoteBookComponent implements OnInit {
-  lstWord : any[];
+  lstWord;
   lstBox = CONST.CONFIG_BOX;
   selectedWord : any;
   userId;
+  selectedBox;
   constructor(private serviceWord : WordService, private authenticationService: AuthenticationService) {
-    this.lstWord = serviceWord.getCurrentWordList();
+    // this.lstWord = serviceWord.getCurrentWordList();
   }
 
   ngOnInit() {
-    this.authenticationService.profile().subscribe(data => {
-      console.log(data)
-      this.userId = data.id
-      console.log(this.userId)
-      this.serviceWord.getListWord(this.userId).subscribe(datas => {
-        console.log('here', this.userId)
-        this.lstWord = datas;
-        console.log(datas)
-        // console.log(datas)
+    if(localStorage.getItem(CONST.KEY_LISTWORD) === null || localStorage.getItem(CONST.KEY_LISTWORD) == null){
+      console.log('1')
+      this.authenticationService.profile().subscribe(data => {
+        this.userId = data.id
+        this.serviceWord.getListWord(this.userId).subscribe(datas => {
+          this.lstWord = datas;
+          localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(this.lstWord));
+        })  
       })
-    })
-    // console.log(this.userId)
+    } else {
+      this.lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
+      console.log(this.lstWord)
+    }
     this.selectedWord = undefined;
   }
 
@@ -38,20 +42,19 @@ export class NoteBookComponent implements OnInit {
     this.selectedWord = word;
   }
 
-  selectBoxFilter(event){
-    let value = event.target.value;
-    this.lstWord = this.serviceWord.getCurrentWordList();
-    if(value != 0) {
-      this.lstWord = this.lstWord.filter(word => word.idbox == value);
+  selectedBoxFilter(){
+    // this.lstWord = this.serviceWord.getCurrentWordList();
+    if(this.selectedBox != 0) {
+      this.lstWord = this.lstWord.filter(word => word.idbox == this.selectedBox);
     }
   }
 
   onUpdateWord(){
-    this.lstWord = this.serviceWord.getCurrentWordList();
+    // this.lstWord = this.serviceWord.getCurrentWordList();
   }
 
   onDeleteWord(w : Word){
-    this.lstWord = this.serviceWord.removeWord(w);
+    // this.lstWord = this.serviceWord.removeWord(w);
     this.selectedWord = undefined;
   }
 

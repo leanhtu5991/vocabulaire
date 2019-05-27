@@ -18,7 +18,9 @@ router.post('/register', ctrlAuth.register);
 //word
 router.get('/getAllWord', ctrlWord.getAllWord);
 router.get('/getWordByUser/:userId', ctrlWord.getWordByUser);
-router.post('/saveWordToUser/:userId', ctrlWord.saveWordToUser)
+router.post('/saveWordToUser/:userId', ctrlWord.saveWordToUser);
+router.delete('/deleteWord/:wordId', ctrlWord.deleteWord);
+router.post('/updateStatutWord/:wordId/:result', ctrlWord.updateStatutWord);
 //user
 router.get('/profile', ctrlUser.getProfile);
 module.exports = router;
