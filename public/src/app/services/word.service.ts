@@ -68,10 +68,6 @@ export class WordService {
     // return lstWord;
   }
 
-  public getCurrentWordList(userId: any){
-    return JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
-    //return this.http.get('/api/getWordByUser/'+userId, this.headers);
-  }
   public updateStatutWord(wordID, result){
     return this.http.post('/api/updateStatutWord/'+wordID+'/'+result, this.headers);
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizzService } from 'src/app/services/quizz.service';
 import { MatCardModule, MatRadioModule, MatDividerModule, MatDialog, MatProgressBarModule } from '@angular/material';
-import { QCMResponse } from 'src/app/data/question';
+import { QCMResponse, QuestionQCM } from 'src/app/data/question';
 import { QuestionResult } from 'src/app/data/question';
 import { QuizzResultComponent } from '../../../pop-up/quizz-result/quizz-result.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -49,17 +49,26 @@ export class QuizzDetailComponent implements OnInit {
     var results = [];
     this.authenticationService.profile().subscribe(data => {
       this.userId = data.id;
-      this.lstQuestion = this.quizzService.createListQuestion(this.userId);
-      console.log('lst Q', this.lstQuestion)
-      this.question = this.lstQuestion[this.indexQuestion];
-      console.log('question', this.question);
-      // var result = {
-      //   idWord : 
-      // }
-      // console.log('question', this.lstQuestion[this.indexQuestion])
-      
-      this.nbQuestion = this.lstQuestion.length;
-      // this.question = this.lstQuestion[this.indexQuestion];
+      this.quizzService.getWordValidateTime(this.userId).subscribe(data => {
+        this.lstQuestion = [];
+          data.forEach(word=>{
+          // lstWord.forEach(word=> {
+            let wordId = word.id;
+            let ask = "What is the definition of " + word.word + " ?";
+            let oA = word.translate;
+            let oB = "BBB";
+            let oC = "CCC";
+            let oD = "DDD";
+            let s  = QCMResponse.optionA;
+            let q = new QuestionQCM(wordId, ask, oA, oB, oC, oD, s);
+            this.lstQuestion.push(q)
+          })
+          console.log('lst Q', this.lstQuestion);
+          console.log('lst Q', this.lstQuestion.length);
+          this.question = this.lstQuestion[this.indexQuestion];
+          console.log('question', this.question);
+          this.nbQuestion = this.lstQuestion.length;
+        })
     })
 
 

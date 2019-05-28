@@ -9,7 +9,10 @@ const Word = db.get().define('word', {
     example2: Sequelize.STRING,
     iduser: Sequelize.INTEGER,
     idbox: Sequelize.INTEGER,
-    validatetime: Sequelize.DATE,
+    validatetime: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW
+    },
     status: Sequelize.INTEGER, 
     id: { type: Sequelize.INTEGER, primaryKey: true }
     }, {

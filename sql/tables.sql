@@ -35,8 +35,8 @@ CREATE TABLE vocabulary.word (
 	example2 varchar(1000) NULL,
 	iduser int NOT NULL,
 	idbox int NOT NULL,
-	validatetime date NULL,
-	status int NULL,
+	validatetime datetime NULL,
+	status float NULL,
 	CONSTRAINT word_pk PRIMARY KEY (id)
 )
 ENGINE=InnoDB
