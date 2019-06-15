@@ -1,0 +1,23 @@
+#title{
+    font-size: 3em;
+    text-align: center;
+}
+
+#quizz_home{
+    min-height: 80vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#btn_start{
+    font-size: 2em;
+    text-align: center;
+    width: 8em;
+    background-color: #1dc217;
+    border-radius: 4px;
+    border: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+}
+

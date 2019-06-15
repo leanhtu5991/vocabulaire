@@ -8,13 +8,26 @@ module.exports.getAllWord = function (req, res) {
 }
 
 module.exports.getWordByUser = function(req, res){
-    var userId =  req.params.userId;
-    console.log('userId',userId)
-    wordModel.findAll({where: {
-        iduser: userId
-    }})
-.then(datas => {res.status(200).json(datas)})
-.catch(error => res.status(400).json(error));
+    var userId = parseInt(req.params.userId);
+    var dateValid = newDateTime();
+    var query = "select w.id, w.word, w.translate, w.example1, w.example2, w.iduser, w.idbox, b.time, w.status, (TIME_TO_SEC(timediff(?, validatetime))/60) as validTime from word w, box b where w.idbox = b.id and iduser = ?" 
+    db.get().query(query,
+    { type: db.get().QueryTypes.SELECT, replacements: [dateValid, userId] })
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(
+        error => {
+            res.status(400).json(error);
+        }
+    );
+//     var userId =  req.params.userId;
+//     console.log('userId',userId)
+//     wordModel.findAll({where: {
+//         iduser: userId
+//     }})
+// .then(datas => {res.status(200).json(datas)})
+// .catch(error => res.status(400).json(error));
 }
 
 module.exports.getWordForQuestion = function(req, res){
@@ -34,7 +47,7 @@ module.exports.getWordForQuestion = function(req, res){
 }
 module.exports.saveWordToUser = function(req, res){
     var userId = req.params.userId;
-    var d = new Date();
+    var d = newDateTime();
     var newWord = wordModel.build({
         word: req.body.word,
         type: req.body.type,
@@ -48,7 +61,20 @@ module.exports.saveWordToUser = function(req, res){
     newWord.save().then(result => res.status(200).json({status: "success", messsage: "word update"}))
     .catch(error => res.status(400).json(error));;
     // console.log('word',req.body.word);
-    res.json({'result': "succes"})
+}
+
+module.exports.modifyWord = function(req, res){
+    var wordId =  req.body.id;
+    var word = {
+        translate : req.body.translate,
+        idbox : req.body.idbox,
+        example1: req.body.example1,
+        example2: req.body.example2,
+        status: req.body.idbox,
+        validatetime: newDateTime()
+    }
+    wordModel.update(word, { where: { id: wordId} }).then(result => res.status(200).json({status: "success", messsage: "word update"}))
+    .catch(error => res.status(400).json(error));;
 }
 
 module.exports.deleteWord = function(req, res){
@@ -88,7 +114,8 @@ module.exports.updateStatutWord = function(req, res){
                 status = word.status-0.5;
             }
             if(status < 2){
-                idBox = 1
+                idBox = 1;
+                status = 1;
             } else if(status >= 2 && status <3) {
                 idBox = 2;
             } else if(status >= 3 && status <4) {
@@ -99,11 +126,8 @@ module.exports.updateStatutWord = function(req, res){
                 idBox = 5;
             } else if(status >= 6) {
                 idBox = 6;
+                status = 6;
             }
-            console.log('idBox', idBox);
-            console.log('status', status);
-            console.log(dateUpdate);
-            console.log(wordId)
             db.get().query("UPDATE word SET status=? , idbox=? , validatetime=? where id = ?",
                 { type: db.get().QueryTypes.UPDATE, replacements: [status, idBox, dateUpdate, wordId] }).then(result => {
                     res.json("update word success");

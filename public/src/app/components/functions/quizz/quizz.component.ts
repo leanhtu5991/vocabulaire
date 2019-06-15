@@ -22,7 +22,7 @@ export class QuizzComponent implements OnInit {
   }
 
   startQuizz(){
-    this.router.navigate(['/quizzDetail', this.userId]);
+    this.router.navigate(['/quizzDetail']);
   }
 
 }

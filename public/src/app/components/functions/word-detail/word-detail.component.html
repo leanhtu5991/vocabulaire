@@ -1,5 +1,5 @@
-<div *ngIf="checkWord() then noWord else wordDetail"></div>
-<ng-template #noWord>
+<!-- <div *ngIf="word then noWord else wordDetail"></div> -->
+<ng-template [ngIf]="!openModify" [ngIfElse]="wordDetail">
     <div class="word-detail">
         <h3>Please select a word.</h3>
     </div>
@@ -22,9 +22,13 @@
             </select>
             <label>Move to box:</label>
             <select class="form-control" formControlName="idbox">
-                <option *ngFor='let box of cb' value='{{box.id}}' [disabled]='box.id > word.idbox'
+                <option *ngFor='let box of boxCanModify' value='{{box.id}}' [disabled]='box.id > word.idbox'
                     [selected]="box.id == word.idbox">{{box.name}}</option>
             </select>
+            <label>Modify your example 1:</label>
+            <input type="text" class="form-control" [value]="word.example1" formControlName="example1" required />
+            <label>Modify your example 2:</label>
+            <input type="text" class="form-control" [value]="word.example2" formControlName="example2" required />
         </form>
         <div class="form-group alert alert-warning" [hidden]="hiddenMessage">
             Please review all fields before submitting.
@@ -37,6 +41,9 @@
         </div>
         <div *ngIf="!modify">
             <button class="form-control btn-del" (click)="confirmDelete()">Delete</button>
+        </div>
+        <div *ngIf="!modify">
+            <button class="form-control btn-cancel" (click)="closeModify()">cancel</button>
         </div>
         <div *ngIf="modify">
             <button class="form-control btn-save" (click)="submitForm()">Save</button>

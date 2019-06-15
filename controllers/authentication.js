@@ -5,25 +5,20 @@ const jwt = require('jsonwebtoken');
 var jwtDecode = require('jwt-decode');
 
 module.exports.login = function (req, res) {
-    console.log('login')
     var email = req.body.email;
     var password = req.body.password;
     userModel.findOne({ where: { email: email }})
     .then(user => {
         // Return if user not found in database
         if (user === null) {
-            console.log('not found this user'
-        )
             res.json({status:"error", message: "not found this user", data:null});
         } else {
              // Return if password is wrong
             if (!user.validPassword(password)) {
-                console.log('pass wrong')
                 res.json({status:"error", message: "password is wrong", data:null});
             }
             // If credentials are correct, return the user object
             else {
-                console.log('user found')
                 const token = jwt.sign({user: user}, req.app.get('secretKey'), { expiresIn: '1h' });
                 res.json({status:"success", message: "user found!!!", user: user, token:token});
             } 

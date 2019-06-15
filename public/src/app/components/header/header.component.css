@@ -5,6 +5,7 @@
     padding: 10px 24px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side */
+    font-size: 1em;
   }
   
   /* Clear floats (clearfix hack) */
@@ -22,3 +23,75 @@
   .btn-group button:hover {
     background-color: #3e8e41;
   }
+
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: white;  
+}
+
+.active{
+  background-color: green;
+  color: white;
+}
+.active a{
+  color: white;
+}
+.navbar-inverse {
+  background-color: #4CAF50;
+  border: 1px solid green;
+}
+
+.navbar-inverse .navbar-brand {
+  color: black;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+  color: #fff;
+  background-color: green;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  color: #fff;
+  background-color: green;
+}
+
+.navbar-nav>li>.dropdown-menu {
+  background-color: #4CAF50;
+  border: 1px solid green;
+}
+
+.active[_ngcontent-c2] a[_ngcontent-c2] {
+  color: black;
+}
+
+.active[_ngcontent-c2] a[_ngcontent-c2]:hover {
+  color: white;
+  background-color: #4CAF50;
+}
+.dropdown-menu>li>a {
+  color: black;
+}
+.dropdown-menu>li>a:hover {
+  color: white;
+  background-color: #4CAF50;
+}
+@media only screen and (max-width: 600px) {
+  .vocabulary2 {
+    display: none;
+  }
+}
+@media only screen and (min-width: 601px) {
+  .vocabulary1 {
+    display: none;
+  }
+}
+
+.vocabulary2 {
+  font-size: 1.2em;
+}

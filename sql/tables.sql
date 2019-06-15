@@ -73,3 +73,8 @@ ALTER TABLE vocabulary.`group` ADD CONSTRAINT group_user_fk FOREIGN KEY (idmanag
 ALTER TABLE vocabulary.word ADD CONSTRAINT word_user_fk FOREIGN KEY (iduser) REFERENCES vocabulary.`user`(id);
 ALTER TABLE vocabulary.word ADD CONSTRAINT word_box_fk FOREIGN KEY (idbox) REFERENCES vocabulary.box(id);
 ALTER TABLE vocabulary.`user` ADD CONSTRAINT user_role_fk FOREIGN KEY (`role`) REFERENCES vocabulary.`role`(id);
+
+select w.word, timediff(NOW(), validatetime), TIME_TO_SEC(timediff(NOW(), validatetime))/60 as validtime, 
+b.time from word w, box b where w.idbox = b.id and iduser = 4 and (TIME_TO_SEC(timediff(NOW(), validatetime))/60-b.time)>0 
+select *, timediff(NOW(), validatetime) from word where iduser = 4;
+select *, TIME_TO_SEC(validatetime) from word where iduser = 4;

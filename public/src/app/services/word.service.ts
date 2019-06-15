@@ -12,7 +12,6 @@ export class WordService {
   constructor(private http: HttpClient) { }
 
   public getListWord(userId){
-    console.log('hhh', userId)
     // console.log("Service Get List Word by user Id");
     // localStorage.removeItem(CONST.KEY_LISTWORD);
     //Service get list word, then save to local storage
@@ -21,38 +20,11 @@ export class WordService {
   }
 
   public saveNewWord(userId, word){
-    console.log(word.word + " is saved.");
     return this.http.post('/api/saveWordToUser/'+userId, word);
-    // const request = base.pipe(
-    //   map((data: any) => {
-    //     if(data)
-    //       return data;
-    //     else
-    //       return {'starf': true}
-    //   })
-    // );
-    // return request;
-    //Save to server...
-    //Then update localStorage
-    // let lstWord = this.getCurrentWordList();
-    // word.id = lstWord.length + 1;
-    // lstWord.unshift(word);
-    // localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
-    
   }
 
   public modifyWord(modWord : Word){
-    //Update new word to list:
-    // let lstWord = this.getCurrentWordList();
-    // if(lstWord.length == 0) return;
-    // let index = lstWord.findIndex(w => w.id == modWord.id);
-    // if(index == -1) return;
-    // lstWord[index].translate  = modWord.translate;
-    // lstWord[index].idbox      = modWord.idbox;
-    // lstWord[index].type       = modWord.type;
-    // localStorage.setItem(CONST.KEY_LISTWORD, lstWord);
-    // console.log(lstWord[index].word + " is saved.");
-    // return lstWord[index];
+    return this.http.post('/api/modifyWord', modWord);
   }
 
   public deleteWord(delWord : Word){

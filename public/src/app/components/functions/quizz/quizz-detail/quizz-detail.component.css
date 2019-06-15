@@ -6,11 +6,13 @@ button.option {
     min-height: 40px;
     margin-left: 10px;
     margin-bottom : 20px;
+    font-size: 1.5em;
 }
 
 button.submit{
     width: auto;
     float: right;
+    margin-right: 5px;
 }
 
 .submitzone{
@@ -19,4 +21,59 @@ button.submit{
 
 .selected {
     color :#273c75;
+}
+
+#numQuestion{
+    font-size: 2.2em;
+    font-weight: bold;
+}
+
+#question{
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.correct{
+    background-color: #1dc217;
+    color: black !important;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.incorrect{
+    background-color: red;
+    color: black !important;
+    font-size: 1.1em;
+}
+
+.no-click {
+    pointer-events: none;
+}
+
+.result{
+    font-size: 1.3em;
+}
+
+.box{
+    font-weight: bold;
+    color: grey;
+    display: inline-block;
+}
+
+.answer{
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.btn_suggest{
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.bottom_ecart{
+    margin-bottom: 10px;
+}
+
+#suggestion{
+    font-size: 1.5em;
 }

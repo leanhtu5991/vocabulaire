@@ -20,6 +20,7 @@ router.get('/getAllWord', ctrlWord.getAllWord);
 router.get('/getWordByUser/:userId', ctrlWord.getWordByUser);
 router.get('/getWordForQuestion/:userId', ctrlWord.getWordForQuestion);
 router.post('/saveWordToUser/:userId', ctrlWord.saveWordToUser);
+router.post('/modifyWord', ctrlWord.modifyWord);
 router.delete('/deleteWord/:wordId', ctrlWord.deleteWord);
 router.post('/updateStatutWord/:wordId/:result', ctrlWord.updateStatutWord);
 //user

@@ -4,3 +4,11 @@
     height: 60px;
     background-color: brown;
 }
+
+#btn_addword{
+    background: brown;
+    padding: 6px;
+    color: white;
+    border-radius: 10%;
+    margin-left:10px;
+}

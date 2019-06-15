@@ -17,25 +17,31 @@ export class NoteBookComponent implements OnInit {
   selectedWord : any;
   userId;
   selectedBox;
+  countdown;  
+  wordValid;
   constructor(private serviceWord : WordService, private authenticationService: AuthenticationService) {
     // this.lstWord = serviceWord.getCurrentWordList();
   }
 
   ngOnInit() {
-    if(localStorage.getItem(CONST.KEY_LISTWORD) === null || localStorage.getItem(CONST.KEY_LISTWORD) == null){
-      console.log('1')
-      this.authenticationService.profile().subscribe(data => {
-        this.userId = data.id
-        this.serviceWord.getListWord(this.userId).subscribe(datas => {
-          this.lstWord = datas;
+    this.authenticationService.profile().subscribe(data => {
+      this.userId = data.id
+      this.serviceWord.getListWord(this.userId).subscribe(datas => {
+        this.lstWord = datas;
+        if(localStorage.getItem(CONST.KEY_LISTWORD) === null || localStorage.getItem(CONST.KEY_LISTWORD) == null){
           localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(this.lstWord));
-        })  
-      })
-    } else {
-      this.lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
-      console.log(this.lstWord)
-    }
-    this.selectedWord = undefined;
+        } else {
+          localStorage.removeItem(CONST.KEY_LISTWORD)
+          localStorage.setItem(CONST.KEY_LISTWORD, JSON.stringify(this.lstWord));
+        }
+        this.selectedWord = undefined;
+        this.lstWord.forEach(word => {
+          if((word.validTime - word.time)>=0){
+            word.timeValid = true;
+          }
+        });
+      })  
+    })
   }
 
   selectWord(word: any){
@@ -43,9 +49,9 @@ export class NoteBookComponent implements OnInit {
   }
 
   selectedBoxFilter(){
-    // this.lstWord = this.serviceWord.getCurrentWordList();
+    this.lstWord = JSON.parse(localStorage.getItem(CONST.KEY_LISTWORD));
     if(this.selectedBox != 0) {
-      this.lstWord = this.lstWord.filter(word => word.idbox == this.selectedBox);
+      this.lstWord = this.lstWord.filter(word => parseInt(word.idbox) == parseInt(this.selectedBox));
     }
   }
 

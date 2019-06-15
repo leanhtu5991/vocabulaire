@@ -29,7 +29,8 @@ import { WordDetailComponent } from './components/functions/word-detail/word-det
 import { ConfirmationComponent } from './components/pop-up/confirmation/confirmation.component';
 import { QuizzDetailComponent } from './components/functions/quizz/quizz-detail/quizz-detail.component';
 import { QuizzResultComponent } from './components/pop-up/quizz-result/quizz-result.component';
-
+import { StatisticComponent } from './components/functions/statistic/statistic.component';
+import { TrainingComponent } from './components/functions/training/training.component';
 //Pipe
 import { BoxformatPipe } from './pipes/boxformat.pipe';
 import { WordTypePipe } from './pipes/word-type.pipe';
@@ -37,6 +38,9 @@ import { WordTypePipe } from './pipes/word-type.pipe';
 import { WordService } from './services/word.service';
 import { QuizzService } from './services/quizz.service';
 import { AuthenticationService } from './services/auth.service';
+
+import { RoleGuardService } from './services/role-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 
@@ -63,7 +67,9 @@ export function tokenGetter() {
     WordTypePipe,
     ConfirmationComponent,
     QuizzDetailComponent,
-    QuizzResultComponent
+    QuizzResultComponent,
+    StatisticComponent,
+    TrainingComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +101,8 @@ export function tokenGetter() {
     WordService,
     QuizzService,
     AuthenticationService,
+    RoleGuardService, 
+    AuthGuardService,
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   entryComponents: [ 

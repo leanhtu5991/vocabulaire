@@ -24,9 +24,12 @@ export const CONST = Object.freeze({
         {id : 4, type : "(adv)", color : 'purple',  typename : 'Adverb'},
     ],
     CONFIG_BOX : [
-        {id : 1, name : "BOX 1", description: "box1", pointPassLevel: 100, pointCorrect: 50},
-        {id : 2, name : "BOX 2", description: "box2", ponitPassLevel: 200, pointCorrect: 50},
-        {id : 3, name : "BOX 3", description: "box3", pointPassLevel: 300, pointCorrect: 50},
+        {id : 1, name : "BOX 1", description: "box1"},
+        {id : 2, name : "BOX 2", description: "box2"},
+        {id : 3, name : "BOX 3", description: "box3"},
+        {id : 4, name : "BOX 4", description: "box4"},
+        {id : 5, name : "BOX 5", description: "box5"},
+        {id : 6, name : "BOX 6", description: "box6"},
     ],
     LIST_WORD_EXAMPLE : [
         {id: 1, word: 'hello', translate : "bonjour", idbox : 1, type : 1, example1 : "Hello, how are you?", example2: "Hello, it's me !"},

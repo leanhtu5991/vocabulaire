@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+      <div id="img_title" class="col-sm-12 col-md-12 col-lg-12">
+        <img [src]="img_training">
+      </div>
+      <div class="center col-sm-12 col-md-12 col-lg-12">
+        <table id="table_training">
+          <tr *ngFor="let word of lstTrainingWord">
+            <td>
+              <span *ngIf="word.direction==0">{{word.word}}</span>
+              <input *ngIf="word.direction==1 && show_result == 0" [(ngModel)]="word.answer" type="text">
+              <span *ngIf="word.direction==1 && show_result == 1 && word.result==1" class="correct">{{word.answer}}</span>
+              <span *ngIf="word.direction==1 && show_result == 1 && word.result==0">
+                <span><del>{{word.answer}}</del></span>
+                <span class="incorrect">{{word.word}}</span>
+              </span>
+            </td>
+            <td>
+              <span *ngIf="word.direction==1">{{word.translate}}</span>
+              <input *ngIf="word.direction==0 && show_result == 0" [(ngModel)]="word.answer" type="text">
+              <span *ngIf="word.direction==0 && show_result == 1 && word.result==1" class="correct">{{word.answer}}</span>
+              <span *ngIf="word.direction==0 && show_result == 1 && word.result==0">
+                <span><del>{{word.answer}}</del></span>
+                <span class="incorrect">{{word.translate}}</span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <button *ngIf="show_result==0" id="btn_showresult" (click)='showResult()'>Result</button>
+        <button *ngIf="show_result==1" id="btn_reset" (click)='resetTraining()'>Try again</button>
+        <h1 *ngIf="show_result==1">Score : {{result_final}}/{{wordTrainingLength}}</h1>
+      </div>
+    </div>
+</div>

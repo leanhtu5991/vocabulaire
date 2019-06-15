@@ -10,7 +10,13 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
-    height: 40px;
+    /* height: 40px; */
+    display: flex;
+    justify-content: center;
+}
+
+.menu h3{
+    font-size: 1.2em;
 }
 
 .menu1 {
@@ -27,4 +33,7 @@
 }
 .menu5 {
     background-color:crimson;
+}
+.menu6 {
+    background-color:#8A2BE2;
 }

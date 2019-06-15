@@ -10,7 +10,7 @@ interface TokenResponse {
 }
 
 interface DecodedToken {
-  isAdmin: boolean
+  role: number;
 }
 
 export interface TokenPayload {
@@ -44,7 +44,7 @@ export class AuthenticationService {
 
   public isAdmin(): boolean {
     var decodedToken = this.jwtHelper.decodeToken().user as DecodedToken;
-    return decodedToken !== null && decodedToken.isAdmin;
+    return decodedToken !== null && decodedToken.role == 1;
   }
 
   private request(method: 'post' | 'get', type: 'login' | 'register' | 'profile' | 'files', user?: TokenPayload) {
@@ -82,7 +82,7 @@ export class AuthenticationService {
 
   public logout(): void {
     this.token = '';
-    localStorage.removeItem(this.tokenStorageName);
+    localStorage.clear();
     console.log(localStorage)
     this.router.navigateByUrl('/');
   }

@@ -33,6 +33,7 @@ export class LoginComponent {
   onSubmit(){
     this.user = this.loginForm.value;
     this.authService.login(this.user).subscribe(data => {
+      console.log(data)
       if(data.status == 'success'){
         if(data.user.isAdmin){
           setTimeout(() => {

@@ -7,8 +7,8 @@ interface Question {
 }
 
 export enum QuestionType {
-    MULTIPLE_CHOICE,
-    ANSWER
+    MULTIPLE_CHOICE = 0,
+    ANSWER = 1
 }
 
 export enum QuestionResult {
@@ -17,10 +17,10 @@ export enum QuestionResult {
 }
 
 export enum QCMResponse {
-    optionA = "A",
-    optionB = "B",
-    optionC = "C",
-    optionD = "D"
+    optionA = "a",
+    optionB = "b",
+    optionC = "c",
+    optionD = "d"
 }
 
 export class QuestionQCM implements Question {
@@ -36,12 +36,12 @@ export class QuestionQCM implements Question {
     optionD : string;
     wordId : number;
 
-    constructor(wordId:number, ask: string,
+    constructor(wordId:number, ask: string, type: number,
         optionA: string, optionB: string,
         optionC: string, optionD: string,
         solution: QCMResponse) {
         this.wordId = wordId;
-        this.type = QuestionType.MULTIPLE_CHOICE;
+        this.type = type;
         this.ask = ask;
         this.optionA = optionA;
         this.optionB = optionB;

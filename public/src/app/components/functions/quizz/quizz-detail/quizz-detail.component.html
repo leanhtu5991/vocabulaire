@@ -1,33 +1,82 @@
-<div>Question {{indexQuestion + 1}} / {{nbQuestion}}</div>
+<div class="container">
+    <div class="row">
+        <div id="numQuestion">Question {{indexQuestion + 1}} / {{nbQuestion}}</div>
+        <mat-card id="question">{{question.ask}}</mat-card>
+    </div>
+</div>
 
-<mat-card>{{question.ask}}</mat-card>
 
 <br/>
 
-<div class="container">
+<div class="container" *ngIf="question.type == 0">
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6">
-            <button class="option" mat-raised-button (click)="onSelect($event, optionA)">{{question.optionA}}</button>
+            <button class="option a" [ngClass]="{'no-click':finish_answer == true}" mat-raised-button (click)="onSelect($event, optionA)">{{question.optionA}}</button>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
-            <button class="option" mat-raised-button (click)="onSelect($event, optionB)">{{question.optionB}}</button>
+            <button class="option b" [ngClass]="{'no-click':finish_answer == true}" mat-raised-button (click)="onSelect($event, optionB)">{{question.optionB}}</button>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6">
-            <button class="option" mat-raised-button (click)="onSelect($event, optionC)">{{question.optionC}}</button>
+            <button class="option c" [ngClass]="{'no-click':finish_answer == true}" mat-raised-button (click)="onSelect($event, optionC)">{{question.optionC}}</button>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
-            <button class="option" mat-raised-button (click)="onSelect($event, optionD)">{{question.optionD}}</button>
+            <button class="option d" [ngClass]="{'no-click':finish_answer == true}" mat-raised-button (click)="onSelect($event, optionD)">{{question.optionD}}</button>
         </div>
     </div>
 
     <div class="row submitzone">
-        <div class="col-sm-12 col-md-9 col-lg-9">
+        <div class="col-sm-12 col-md-9 col-lg-9 bottom_ecart">
             <mat-progress-bar mode="determinate" [value]="timing"></mat-progress-bar>
         </div>
         <div class="col-sm-12 col-md-3 col-lg-3">
-            <button class="submit" mat-raised-button color="warn" [disabled]='selected == null' (click)="submit()">{{buttonLabel}}</button>
+            <button class="submit" mat-raised-button color="warn" [disabled]='finish_answer == false' (click)="nextQuestion()">{{buttonLabel}}</button>
+            <button class="submit" mat-raised-button color="warn" [disabled]='selected == null' *ngIf="finish_answer == false" (click)="submit()">Valid</button>
         </div>
     </div>
 </div>
+
+<div class="container" *ngIf="question.type == 1">
+    <div class="col-sm-6 col-md-6 col-lg-6 bottom_ecart">
+        <span class="answer">Your answer : <input type="text" [(ngModel)]="answer"></span>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6" id="suggestion">
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 bottom_ecart">
+        <button type="button" class="btn btn-primary btn_suggest" (click)="suggest1()">Suggestion 1</button>
+        <button type="button" class="btn btn-info btn_suggest" (click)="suggest2()">Suggestion 2</button>
+    </div>
+    <div class="row submitzone bottom_ecart">
+        <div class="col-sm-12 col-md-9 col-lg-9 bottom_ecart">
+            <mat-progress-bar mode="determinate" [value]="timing"></mat-progress-bar>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <button class="submit" mat-raised-button color="warn" [disabled]='selected == null' (click)="nextQuestion()">{{buttonLabel}}</button>
+            <button class="submit" mat-raised-button color="warn" [disabled]='answer ==  null || answer == ""' *ngIf="finish_answer == false" (click)="submit1()">Valid</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="finish_answer==true">
+    <div class="row result">
+        <div class="col-sm-6 col-md-4 col-lg-4">
+            <span class="result">Your question is </span><b><span class="result" *ngIf="question.result==1">Correct</span><span class="result" *ngIf="question.result==0">Incorrect</span></b><br>
+            <span>Detail</span>
+            <ul>
+                <li>Word : {{detailWord.word}}</li>
+                <li>Translate : <b>{{detailWord.translate}}</b></li>
+                <li>Example1 : {{detailWord.example1}}</li>
+                <li>Example2 : {{detailWord.example2}}</li>
+                <li>Box current : <span class="box">{{detailWord.box}}</span></li>
+            </ul>
+            
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <img *ngIf="question.result==1" [src]="img_correct">
+            <img *ngIf="question.result==0" width="40%" [src]="img_incorrect">
+        </div>
+    </div>
+</div>
+
+

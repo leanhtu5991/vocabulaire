@@ -1,18 +1,106 @@
-<div *ngIf="isLogedIn(); then loggedMenu else guestMenu"></div>
+<!-- <div *ngIf="isLogedIn(); then loggedMenu else guestMenu"></div>
 <ng-template #loggedMenu>
   <div class="btn-group" style="width:100%" >
-    <button style="width:10%"routerLink="/user"><i class="fa fa-home"></i></button>
+    <button style="width:25%"routerLink="/user"><i class="fa fa-home"></i></button>
 
-    <button style="width:20%" (click)="logout()">Log Out</button>
-    <button style="width:20%" routerLink="/userinfo">My Account</button>
-    <button style="width:20%" routerLink="/aboutus">About Us</button>
+    <button style="width:25%" (click)="logout()">Log Out</button>
+    <button style="width:25%" routerLink="/userinfo">My Account</button>
+    <button style="width:25%" routerLink="/aboutus">About Us</button>
   </div>
 </ng-template>
 <ng-template #guestMenu>
   <div class="btn-group" style="width:100%" >
-    <button style="width:10%"routerLink="/"><i class="fas fa-home"></i></button>
-    <button style="width:30%" routerLink="/login">Log In</button>
-    <button style="width:30%" routerLink="/signup">Sign Up</button>
-    <button style="width:30%" routerLink="/aboutus">About Us</button>  
+    <button style="width:25%"routerLink="/"><i class="fas fa-home"></i></button>
+    <button style="width:25%" routerLink="/login">Log In</button>
+    <button style="width:25%" routerLink="/signup">Sign Up</button>
+    <button style="width:25%" routerLink="/aboutus">About Us</button>  
   </div>
+</ng-template> -->
+
+<!-- <div *ngIf="isLogedIn(); then loggedMenu else guestMenu"></div>
+<ng-template #loggedMenu>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <ul class="nav navbar-nav">
+              <li><a routerLink="/user"><i class="fa fa-home"></i>Login</a></li>
+              <li><a (click)="logout()">Log out</a></li>
+              <li><a routerLink="/userinfo">My Account</a></li>
+              <li><a rrouterLink="/aboutus">About Us</a></li>
+          </ul>
+        </div>
+    </nav>
+</ng-template>
+<ng-template #guestMenu>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <ul class="nav navbar-nav menu">
+              <li><a routerLink="/user"><i class="fa fa-home"></i>Login</a></li>
+              <li><a routerLink="/login">Log in</a></li>
+              <li><a routerLink="/signup">Sign Up</a></li>
+              <li><a routerLink="/aboutus">About Us</a></li>
+          </ul>
+        </div>
+    </nav>
+</ng-template> -->
+
+
+<div *ngIf="isLogedIn(); then loggedMenu else guestMenu"></div>
+<ng-template #loggedMenu>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid header-menu">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand vocabulary1" routerLink="/" (click)="homeClick($event)">Vocabulary</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="vocabulary2"><a routerLink="/" (click)="menuClick($event)">Vocabulary</a></li>
+          <li class="active" (click)="menuClick($event)"><a routerLink="/user">Home</a></li>
+          <li class="dropdown" (click)="menuClick($event)">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Notebook <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/notebook">My notebook</a></li>
+              <li><a routerLink="/addword">Add word</a></li>
+            </ul>
+          </li>
+          <li><a routerLink="/quizz" (click)="menuClick($event)">Quizz</a></li>
+          <li><a routerLink="/training" (click)="menuClick($event)">Training</a></li>
+          <li><a routerLink="/statistic" (click)="menuClick($event)">Statistic</a></li>
+          <li><a routerLink="/userinfo" (click)="menuClick($event)">My Account</a></li>   
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</ng-template>
+
+<ng-template #guestMenu>
+  <nav class="navbar navbar-inverse header-menu">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand vocabulary1" routerLink="/">Vocabulary</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="vocabulary2 active"><a routerLink="/" (click)="menuClick($event)">Vocabulary</a></li>
+          <li (click)="menuClick($event)"><a routerLink="/aboutus">About Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li (click)="menuClick($event)"><a routerLink="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li (click)="menuClick($event)"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </ng-template>

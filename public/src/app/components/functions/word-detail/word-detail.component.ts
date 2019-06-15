@@ -17,6 +17,7 @@ export class WordDetailComponent implements OnInit {
   @Output() updateWord = new EventEmitter<MouseEvent>();
   @Output() deleteWord = new EventEmitter<Word>();
   cb: any = CONST.CONFIG_BOX;
+  boxCanModify = [];
   cw: any = CONST.CONFIG_WORD;
   modifyForm = new FormGroup({});
   modify = false;
@@ -24,6 +25,7 @@ export class WordDetailComponent implements OnInit {
   hiddenMessage = true;
   fb: FormBuilder = new FormBuilder();
   userId: any;
+  openModify = false;
   constructor(fb: FormBuilder, private wordService: WordService, private dialog : MatDialog, private authenticationService : AuthenticationService) {}
 
   ngOnInit() {
@@ -33,19 +35,35 @@ export class WordDetailComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(!this.word) return;
-    this.modify = false;
-    this.modifyForm = this.fb.group({
-      translate: [this.word.translate, [Validators.required, Validators.minLength(2)]],
-      type: [this.word.type,           [Validators.required]],
-      idbox: [this.word.idbox,          [Validators.required]]
-    });
+    if(this.word) {
+      this.modifyForm = this.fb.group({
+        translate: [this.word.translate, [Validators.required, Validators.minLength(2)]],
+        type: [this.word.type,           [Validators.required]],
+        idbox: [this.word.idbox,         [Validators.required]],
+        example1 : [this.word.example1,  [Validators.required]],
+        example2 : [this.word.example2,  [Validators.required]],
+      });
+      var i=0;
+      this.boxCanModify=[];
+      while(i<this.cb.length && this.cb[i].id <= this.word.idbox){
+        this.boxCanModify.push(this.cb[i]);
+        i++
+      }
+      this.checkWord();
+    }
   }
 
   checkWord() {
-    return (typeof this.word === 'undefined');
+    if(this.word){
+      this.openModify = true;
+    } else {
+      this.openModify = false;
+    }
   }
 
+  closeModify(){
+    this.openModify = false;
+  }
   submitForm() {  
     if (this.modifyForm.valid) {
       this.modify = false;
@@ -53,10 +71,13 @@ export class WordDetailComponent implements OnInit {
       this.modWord       = this.modifyForm.value;
       this.modWord.id    = this.word.id;
       // this.word = this.wordService.modifyWord(this.modWord);
-      this.updateWord.emit();
+      // this.updateWord.emit();
     } else {
       this.hiddenMessage = false;
     }
+    this.wordService.modifyWord(this.modWord).subscribe(datas => {
+      console.log(datas)
+    })
   }
 
   public confirmDelete() : void {

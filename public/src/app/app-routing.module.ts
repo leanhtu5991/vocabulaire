@@ -11,19 +11,42 @@ import { NewWordComponent } from './components/functions/new-word/new-word.compo
 import { NoteBookComponent } from './components/functions/note-book/note-book.component';
 import { QuizzComponent } from './components/functions/quizz/quizz.component';
 import { QuizzDetailComponent } from './components/functions/quizz/quizz-detail/quizz-detail.component';
+import { StatisticComponent } from './components/functions/statistic/statistic.component';
+import { TrainingComponent } from './components/functions/training/training.component';
+
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
 const routes: Routes = [
   {path : '',                   component : HeaderComponent,          outlet : "header"},
   {path : '',                   component : MainPageComponent},
-  {path : 'user',               component : MainPageUserComponent},
-  {path : 'addword',            component : NewWordComponent},
-  {path : 'notebook',           component : NoteBookComponent},
+  {path : 'user',               component : MainPageUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {path : 'addword',            component : NewWordComponent,
+    canActivate: [AuthGuard]
+  },
+  {path : 'notebook',           component : NoteBookComponent,
+    canActivate: [AuthGuard]
+  },
+  {path : 'statistic',           component : StatisticComponent,
+    canActivate: [AuthGuard]
+  },
+  {path : 'training',           component : TrainingComponent,
+    canActivate: [AuthGuard]
+  },
   {path : 'login',              component : LoginComponent},
   {path : 'signup',             component : SignupComponent},
   {path : 'aboutus',            component : AboutUsComponent},
-  {path : 'userinfo',           component : UserInfoComponent},
-  {path : 'quizz',              component : QuizzComponent},
-  { path: 'quizzDetail',        component : QuizzDetailComponent}
+  {path : 'userinfo',           component : UserInfoComponent,
+    canActivate: [AuthGuard]
+  },
+  {path : 'quizz',              component : QuizzComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'quizzDetail',        component : QuizzDetailComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
@@ -31,3 +54,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents = [MainPageUserComponent];
