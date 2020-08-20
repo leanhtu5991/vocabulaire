@@ -19,7 +19,7 @@
   "homepage": "https://github.com/nsta9x/vocabulary#readme",
   "dependencies": {
     "array-unique": "^0.3.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "fs": "0.0.1-security",
